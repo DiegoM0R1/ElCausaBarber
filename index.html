@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golden Cut | Barbería Premium</title>
+    <title>ElCausaBarber | Barbería Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
@@ -213,7 +213,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
                     <div class="text-2xl font-bold">
-                        <span class="gold-text">GOLDEN</span> CUT
+                        <span class="gold-text">ElCausa</span>Barber
                     </div>
                 </div>
                 
@@ -296,7 +296,7 @@
                     <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
                         <div class="text-center px-4">
                             <h1 class="text-4xl md:text-6xl font-bold mb-2">
-                                <span class="gold-text">GOLDEN</span> CUT
+                                <span class="gold-text">ElCausa</span>Barber
                             </h1>
                             <p class="text-xl md:text-2xl mb-6">La mejor experiencia en barbería premium</p>
                             <a href="#appointment" class="btn-gold py-2 px-6 rounded-full font-bold inline-block">
@@ -348,9 +348,9 @@
                     <img src="/api/placeholder/600/400" alt="Sobre nosotros" class="rounded-lg shadow-lg" />
                 </div>
                 <div class="md:w-1/2 md:pl-12">
-                    <h2 class="text-3xl font-bold mb-6">Sobre <span class="gold-text">Golden Cut</span></h2>
+                    <h2 class="text-3xl font-bold mb-6">Sobre <span class="gold-text">ElCausaBarber</span></h2>
                     <p class="mb-4">
-                        En Golden Cut nos especializamos en ofrecer servicios de barbería premium con un enfoque en la atención personalizada 
+                        En ElCausaBarber nos especializamos en ofrecer servicios de barbería premium con un enfoque en la atención personalizada 
                         y resultados excepcionales. Con más de 10 años de experiencia, nuestro equipo de barberos expertos está dedicado 
                         a brindarte el mejor servicio.
                     </p>
@@ -1225,23 +1225,23 @@
         });
         
         // Animation for Product Cards
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach((card, index) => {
-            gsap.fromTo(card, {
-                opacity: 0,
-                y: 50
-            }, { }, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                delay: index * 0.1,
-                scrollTrigger: {
-                    trigger: '#products',
-                    start: 'top 70%',
-                    toggleActions: 'play none none none'
-                }
-            });
-        });
+const productCards = document.querySelectorAll('.product-card');
+productCards.forEach((card, index) => {
+    gsap.fromTo(card, {
+        opacity: 0,
+        y: 50
+    }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        scrollTrigger: {
+            trigger: '#products',
+            start: 'top 70%',
+            toggleActions: 'play none none none'
+        }
+    });
+});
         
         // Shopping Cart Functionality
         const cartToggle = document.getElementById('cart-toggle');
