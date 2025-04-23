@@ -1,0 +1,65 @@
+.elcausa-logo {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: #1c1c1c;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.logo-container {
+    text-align: center;
+    color: #ffd700;
+}
+
+.logo-text .top-text {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+.logo-text h1 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 72px;
+    line-height: 1;
+    margin: 0;
+    color: #ffd700;
+}
+
+.logo-details .established {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    color: #ffd700;
+}
+
+.logo-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.mustache-icon {
+    width: 50px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><path d="M10 20 Q25 5, 40 20 Q55 35, 70 20 Q85 5, 90 20" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 10px;
+}
+
+.scissors-icon {
+    width: 30px;
+    height: 30px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 40 L70 60 M30 60 L70 40" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+}

@@ -204,6 +204,78 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #B8860B;
         }
+
+        .elcausa-logo {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    background-color: #1c1c1c;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.logo-container {
+    text-align: center;
+    color: #ffd700;
+    transform: scale(0.8);
+    margin: -15px;
+}
+
+.logo-text .top-text {
+    display: block;
+    font-size: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    color: #ffd700;
+}
+
+.logo-text h1 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 20px;
+    line-height: 1;
+    margin: 0;
+    color: #ffd700;
+}
+
+.logo-details .established {
+    display: block;
+    font-size: 6px;
+    letter-spacing: 1px;
+    margin-top: 2px;
+    color: #ffd700;
+}
+
+.logo-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.mustache-icon {
+    width: 20px;
+    height: 8px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><path d="M10 20 Q25 5, 40 20 Q55 35, 70 20 Q85 5, 90 20" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-right: 3px;
+}
+
+.scissors-icon {
+    width: 12px;
+    height: 12px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 40 L70 60 M30 60 L70 40" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.gold-text {
+    color: #FFD700;
+}
     </style>
 </head>
 <body>
@@ -212,13 +284,26 @@
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <!-- Logo añadido aquí -->
-                <div class="mr-3">
-                    <img src="https://scontent.fcix1-1.fna.fbcdn.net/v/t39.30808-6/490927097_1235394651642159_7791809403369245864_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeF7QdNW44TWt6sIPNdvdrVTo9Cl12s3fROj0KXXazd9E0JhN4r-jbnOZr53y_If62BJzkkow_rO_RZqRRXgF8c0&_nc_ohc=dMBw588Jg10Q7kNvwEQxxPU&_nc_oc=AdmlJGLEm-4MQYDtm1Qfs9HR4f7htUM0enqXwFrVVYIsQa1DhUzT9cbFXSsQm1qU5T8xcKb8cuJGsIkIopSknyWv&_nc_zt=23&_nc_ht=scontent.fcix1-1.fna&_nc_gid=0aaJx9jvirvp9CleToKlkA&oh=00_AfGZDnLDXFYb_fY4XC8WqZxctsRCPA4MNszSJz-oVWkn2A&oe=680EC9A9" alt="ElCausa Barber Logo" class="h-12 w-auto" style="border-radius: 50%;">
+              <!-- HTML Structure for Logo -->
+    <div class="elcausa-logo">
+        <div class="logo-container">
+            <div class="logo-text">
+                <span class="top-text">BARBER SHOP</span>
+                <h1>ElCausa</h1>
+                <div class="logo-details">
+                    <span class="established">ANS JDS</span>
                 </div>
-                    <div class="text-2xl font-bold">
-                        <span class="gold-text">ElCausa</span>Barber
-                    </div>
+            </div>
+            <div class="logo-icons">
+                <div class="mustache-icon"></div>
+                <div class="scissors-icon"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-2xl font-bold">
+        <span class="gold-text">ElCausa</span>Barber
+    </div>
                 </div>
                 
                 <!-- Desktop Navigation -->
