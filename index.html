@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Cut | Barbería Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
+    <style>
+        :root {
+            --color-gold: #D4AF37;
+            --color-black: #0F0F0F;
+            --color-dark-gray: #333333;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-black);
+            color: #fff;
+        }
+        
+        .gold-text {
+            color: var(--color-gold);
+        }
+        
+        .gold-bg {
+            background-color: var(--color-gold);
+        }
+        
+        .dark-gray-bg {
+            background-color: var(--color-dark-gray);
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--color-gold);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        .btn-gold {
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            background-color: #B8860B;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-gold);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .service-item {
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
+            border-left: 3px solid var(--color-gold);
+            padding-left: 1rem;
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--color-gold);
+            color: var(--color-black);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .swiper {
+            width: 100%;
+            height: 500px;
+        }
+        
+        .swiper-slide {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--color-gold) !important;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background-color: var(--color-gold) !important;
+        }
+        
+        .appointment-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--color-dark-gray);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .appointment-input:focus {
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        .cart-item-enter {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        
+        .cart-item-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item-exit {
+            opacity: 1;
+        }
+        
+        .cart-item-exit-active {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .swiper {
+                height: 300px;
+            }
+            
+            .desktop-menu {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .desktop-menu {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--color-black);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-gold);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8860B;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="fixed w-full z-50 bg-black bg-opacity-90 shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold">
+                        <span class="gold-text">GOLDEN</span> CUT
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-menu">
+                    <ul class="flex space-x-4">
+                        <li><a href="#home" class="nav-link">Inicio</a></li>
+                        <li><a href="#services" class="nav-link">Servicios</a></li>
+                        <li><a href="#products" class="nav-link">Productos</a></li>
+                        <li><a href="#gallery" class="nav-link">Galería</a></li>
+                        <li><a href="#appointment" class="nav-link">Reservar</a></li>
+                        <li><a href="#contact" class="nav-link">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <div class="mobile-menu">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Cart Icon -->
+                <div class="cart-icon ml-4 cursor-pointer" id="cart-toggle">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation (Hidden by default) -->
+            <div id="mobile-menu-container" class="hidden mt-4 pb-4">
+                <ul class="flex flex-col space-y-2">
+                    <li><a href="#home" class="nav-link block">Inicio</a></li>
+                    <li><a href="#services" class="nav-link block">Servicios</a></li>
+                    <li><a href="#products" class="nav-link block">Productos</a></li>
+                    <li><a href="#gallery" class="nav-link block">Galería</a></li>
+                    <li><a href="#appointment" class="nav-link block">Reservar</a></li>
+                    <li><a href="#contact" class="nav-link block">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Shopping Cart Sidebar (Hidden by default) -->
+    <div id="shopping-cart" class="fixed right-0 top-0 h-full w-80 bg-black shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div class="p-4 h-full flex flex-col">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Carrito</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-grow overflow-y-auto">
+                <!-- Cart items will be added here dynamically -->
+                <div class="empty-cart text-center py-8 text-gray-400">
+                    <i class="fas fa-shopping-cart text-4xl mb-3"></i>
+                    <p>Tu carrito está vacío</p>
+                </div>
+            </div>
+            
+            <div class="mt-auto">
+                <div class="flex justify-between font-bold mb-4">
+                    <span>Total:</span>
+                    <span class="gold-text" id="cart-total">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="btn-gold w-full py-2 px-4 rounded font-bold disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Finalizar compra por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="pt-20">
+        <div class="swiper heroSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide relative">
+                    <img src="/api/placeholder/1200/500" alt="Barbería elegante" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+                        <div class="text-center px-4">
+                            <h1 class="text-4xl md:text-6xl font-bold mb-2">
+                                <span class="gold-text">GOLDEN</span> CUT
+                            </h1>
+                            <p class="text-xl md:text-2xl mb-6">La mejor experiencia en barbería premium</p>
+                            <a href="#appointment" class="btn-gold py-2 px-6 rounded-full font-bold inline-block">
+                                Reserva tu cita
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide relative">
+                    <img src="/api/placeholder/1200/500" alt="Corte de cabello" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+                        <div class="text-center px-4">
+                            <h2 class="text-3xl md:text-5xl font-bold mb-2">
+                                Estilos <span class="gold-text">Personalizados</span>
+                            </h2>
+                            <p class="text-lg md:text-xl mb-6">Cortes que resaltan tu personalidad</p>
+                            <a href="#services" class="btn-gold py-2 px-6 rounded-full font-bold inline-block">
+                                Ver servicios
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide relative">
+                    <img src="/api/placeholder/1200/500" alt="Productos para barba" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+                        <div class="text-center px-4">
+                            <h2 class="text-3xl md:text-5xl font-bold mb-2">
+                                Productos <span class="gold-text">Premium</span>
+                            </h2>
+                            <p class="text-lg md:text-xl mb-6">Cuida tu look con lo mejor</p>
+                            <a href="#products" class="btn-gold py-2 px-6 rounded-full font-bold inline-block">
+                                Explorar productos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="py-16 dark-gray-bg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <img src="/api/placeholder/600/400" alt="Sobre nosotros" class="rounded-lg shadow-lg" />
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h2 class="text-3xl font-bold mb-6">Sobre <span class="gold-text">Golden Cut</span></h2>
+                    <p class="mb-4">
+                        En Golden Cut nos especializamos en ofrecer servicios de barbería premium con un enfoque en la atención personalizada 
+                        y resultados excepcionales. Con más de 10 años de experiencia, nuestro equipo de barberos expertos está dedicado 
+                        a brindarte el mejor servicio.
+                    </p>
+                    <p class="mb-6">
+                        Utilizamos productos de alta calidad y técnicas innovadoras para asegurar que cada cliente 
+                        salga con un estilo impecable y satisfecho con su experiencia.
+                    </p>
+                    <div class="flex space-x-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold gold-text">10+</div>
+                            <div class="text-sm">Años de experiencia</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold gold-text">5000+</div>
+                            <div class="text-sm">Clientes satisfechos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold gold-text">20+</div>
+                            <div class="text-sm">Premios ganados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Nuestros <span class="gold-text">Servicios</span></h2>
+                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+                <p class="mt-4 max-w-2xl mx-auto">
+                    Ofrecemos una variedad de servicios premium para satisfacer todas tus necesidades de barbería.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-item dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="rounded-full gold-bg p-3 mr-4">
+                            <i class="fas fa-cut text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Corte de Cabello</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        Cortes personalizados adaptados a tu estilo, forma de cara y preferencias personales.
+                    </p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="gold-text font-bold">$25.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded" 
+                                onclick="bookService('Corte de Cabello', 25.00)">
+                            Reservar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-item dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="rounded-full gold-bg p-3 mr-4">
+                            <i class="fas fa-user text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Afeitado Tradicional</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        Experimenta un afeitado clásico con navaja, toallas calientes y productos premium.
+                    </p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="gold-text font-bold">$30.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded" 
+                                onclick="bookService('Afeitado Tradicional', 30.00)">
+                            Reservar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-item dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="rounded-full gold-bg p-3 mr-4">
+                            <i class="fas fa-beard text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Recorte de Barba</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        Perfilado y mantenimiento de barba para mantener un aspecto impecable y bien cuidado.
+                    </p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="gold-text font-bold">$20.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded" 
+                                onclick="bookService('Recorte de Barba', 20.00)">
+                            Reservar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-item dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="rounded-full gold-bg p-3 mr-4">
+                            <i class="fas fa-spray-can text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Coloración</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        Coloración profesional con productos de alta calidad para un resultado natural.
+                    </p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="gold-text font-bold">$45.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded" 
+                                onclick="bookService('Coloración', 45.00)">
+                            Reservar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-item dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="rounded-full gold-bg p-3 mr-4">
+                            <i class="fas fa-hot-tub text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Tratamiento Facial</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        Limpieza profunda, exfoliación y mascarilla para revitalizar tu piel.
+                    </p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="gold-text font-bold">$40.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded" 
+                                onclick="bookService('Tratamiento Facial', 40.00)">
+                            Reservar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-item dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-start mb-4">
+                        <div class="rounded-full gold-bg p-3 mr-4">
+                            <i class="fas fa-fire text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">Paquete Premium</h3>
+                    </div>
+                    <p class="text-gray-400">
+                        Incluye corte de cabello, recorte de barba, afeitado y tratamiento facial.
+                    </p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="gold-text font-bold">$70.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded" 
+                                onclick="bookService('Paquete Premium', 70.00)">
+                            Reservar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section id="products" class="py-16 dark-gray-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Nuestros <span class="gold-text">Productos</span></h2>
+                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+                <p class="mt-4 max-w-2xl mx-auto">
+                    Descubre nuestra selección de productos premium para el cuidado del cabello y la barba.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Pomada para cabello" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Pomada Premium</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Pomada de fijación fuerte con acabado natural. Perfecta para todo tipo de estilos.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$18.99</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="1"
+                                data-name="Pomada Premium"
+                                data-price="18.99"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Aceite para barba" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Aceite para Barba</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Hidrata y suaviza la barba con una mezcla de aceites naturales y aroma a madera.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$22.50</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="2"
+                                data-name="Aceite para Barba"
+                                data-price="22.50"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Cera moldeadora" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Cera Moldeadora</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Cera ligera para un control flexible y natural. Aporta brillo sin dejar residuos.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$16.75</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="3"
+                                data-name="Cera Moldeadora"
+                                data-price="16.75"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Champú para hombre" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Champú Fortalecedor</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Fórmula especial para fortalecer el cabello y prevenir la caída. Con extractos naturales.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$24.99</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="4"
+                                data-name="Champú Fortalecedor"
+                                data-price="24.99"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Bálsamo para barba" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Bálsamo para Barba</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Hidrata y da forma a tu barba. Combate la resequedad y el encrespamiento.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$21.25</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="5"
+                                data-name="Bálsamo para Barba"
+                                data-price="21.25"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Navaja clásica" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Navaja Clásica</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Navaja de afeitar tradicional con mango de madera y hoja de acero inoxidable.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$45.50</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="6"
+                                data-name="Navaja Clásica"
+                                data-price="45.50"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button
+                        data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 7 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Kit de afeitado" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Kit de Afeitado</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Kit completo con brocha, jabón, y after-shave para un afeitado profesional en casa.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$65.00</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="7"
+                                data-name="Kit de Afeitado"
+                                data-price="65.00"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="product-card bg-black p-4 rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Spray texturizador" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-lg font-bold mb-2">Spray Texturizador</h3>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Da volumen y textura a tu cabello con este spray de acabado mate.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="gold-text font-bold">$19.75</span>
+                        <button class="text-sm btn-gold py-1 px-3 rounded add-to-cart"
+                                data-id="8"
+                                data-name="Spray Texturizador"
+                                data-price="19.75"
+                                data-image="/api/placeholder/300/300">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Nuestra <span class="gold-text">Galería</span></h2>
+                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+                <p class="mt-4 max-w-2xl mx-auto">
+                    Explora nuestros mejores trabajos y la experiencia que ofrecemos en Golden Cut.
+                </p>
+            </div>
+            
+            <div class="swiper gallerySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="/api/placeholder/800/500" alt="Trabajo 1" class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/api/placeholder/800/500" alt="Trabajo 2" class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/api/placeholder/800/500" alt="Trabajo 3" class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/api/placeholder/800/500" alt="Trabajo 4" class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/api/placeholder/800/500" alt="Trabajo 5" class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/api/placeholder/800/500" alt="Trabajo 6" class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Galería 1" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Galería 2" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Galería 3" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="/api/placeholder/300/300" alt="Galería 4" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Appointment Section -->
+    <section id="appointment" class="py-16 dark-gray-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Reserva tu <span class="gold-text">Cita</span></h2>
+                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+                <p class="mt-4 max-w-2xl mx-auto">
+                    Reserva tu cita con nuestros barberos expertos y disfruta de una experiencia premium.
+                </p>
+            </div>
+            
+            <div class="max-w-xl mx-auto">
+                <form id="appointment-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="name" class="block mb-2 text-sm">Nombre completo</label>
+                        <input type="text" id="name" name="name" class="w-full appointment-input p-3 rounded-lg" required>
+                    </div>
+                    
+                    <div>
+                        <label for="phone" class="block mb-2 text-sm">Teléfono</label>
+                        <input type="tel" id="phone" name="phone" class="w-full appointment-input p-3 rounded-lg" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block mb-2 text-sm">Email</label>
+                        <input type="email" id="email" name="email" class="w-full appointment-input p-3 rounded-lg" required>
+                    </div>
+                    
+                    <div>
+                        <label for="date" class="block mb-2 text-sm">Fecha</label>
+                        <input type="date" id="date" name="date" class="w-full appointment-input p-3 rounded-lg" required>
+                    </div>
+                    
+                    <div>
+                        <label for="time" class="block mb-2 text-sm">Hora</label>
+                        <input type="time" id="time" name="time" class="w-full appointment-input p-3 rounded-lg" required>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="service" class="block mb-2 text-sm">Servicio</label>
+                        <select id="service" name="service" class="w-full appointment-input p-3 rounded-lg" required>
+                            <option value="">Selecciona un servicio</option>
+                            <option value="Corte de Cabello">Corte de Cabello - $25.00</option>
+                            <option value="Afeitado Tradicional">Afeitado Tradicional - $30.00</option>
+                            <option value="Recorte de Barba">Recorte de Barba - $20.00</option>
+                            <option value="Coloración">Coloración - $45.00</option>
+                            <option value="Tratamiento Facial">Tratamiento Facial - $40.00</option>
+                            <option value="Paquete Premium">Paquete Premium - $70.00</option>
+                        </select>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label for="notes" class="block mb-2 text-sm">Notas adicionales</label>
+                        <textarea id="notes" name="notes" rows="4" class="w-full appointment-input p-3 rounded-lg"></textarea>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <button type="submit" id="book-appointment" class="w-full btn-gold py-3 px-4 rounded-lg font-bold">
+                            Reservar por WhatsApp
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Lo que dicen nuestros <span class="gold-text">Clientes</span></h2>
+                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            </div>
+            
+            <div class="swiper testimonialSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="dark-gray-bg p-6 rounded-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="/api/placeholder/100/100" alt="Cliente" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Miguel Rodríguez</h4>
+                                    <div class="text-gold-500">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 italic">
+                                "La mejor barbería que he visitado. El servicio es impecable y siempre salgo satisfecho con mi corte. El ambiente es muy agradable y los barberos son verdaderos profesionales."
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="dark-gray-bg p-6 rounded-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="/api/placeholder/100/100" alt="Cliente" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Carlos Mendoza</h4>
+                                    <div class="text-gold-500">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 italic">
+                                "Excelentes productos y un servicio de primera. Me encanta el aceite para barba, ha mejorado mucho la textura y apariencia de mi barba. Totalmente recomendado."
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="dark-gray-bg p-6 rounded-lg">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                                    <img src="/api/placeholder/100/100" alt="Cliente" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Javier López</h4>
+                                    <div class="text-gold-500">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 italic">
+                                "Desde que descubrí Golden Cut, no voy a otra barbería. El ambiente es increíble, los barberos saben exactamente lo que quiero y los productos son de alta calidad."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 dark-gray-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold">Contacta con <span class="gold-text">Nosotros</span></h2>
+                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+                <p class="mt-4 max-w-2xl mx-auto">
+                    ¿Tienes alguna pregunta? No dudes en ponerte en contacto con nosotros.
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <div class="bg-black p-6 rounded-lg h-full">
+                        <h3 class="text-xl font-bold mb-4">Información de Contacto</h3>
+                        
+                        <div class="flex items-start mb-4">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Dirección</h4>
+                                <p class="text-gray-400">Av. Principal 123, Centro Comercial Elegante, Local 45</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-4">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Teléfono</h4>
+                                <p class="text-gray-400">+52 123 456 7890</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-4">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email</h4>
+                                <p class="text-gray-400">info@goldencut.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-4">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Horario</h4>
+                                <p class="text-gray-400">Lunes - Sábado: 10:00 AM - 8:00 PM</p>
+                                <p class="text-gray-400">Domingo: Cerrado</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h4 class="font-bold mb-2">Síguenos</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-8">
+                    <form id="contact-form" class="bg-black p-6 rounded-lg">
+                        <div class="mb-4">
+                            <label for="contact-name" class="block mb-2 text-sm">Nombre</label>
+                            <input type="text" id="contact-name" name="name" class="w-full appointment-input p-3 rounded-lg" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="contact-email" class="block mb-2 text-sm">Email</label>
+                            <input type="email" id="contact-email" name="email" class="w-full appointment-input p-3 rounded-lg" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="contact-subject" class="block mb-2 text-sm">Asunto</label>
+                            <input type="text" id="contact-subject" name="subject" class="w-full appointment-input p-3 rounded-lg" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="contact-message" class="block mb-2 text-sm">Mensaje</label>
+                            <textarea id="contact-message" name="message" rows="5" class="w-full appointment-input p-3 rounded-lg" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-gold py-3 px-4 rounded-lg font-bold">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-black py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0">
+                    <div class="text-3xl font-bold mb-2">
+                        <span class="gold-text">GOLDEN</span> CUT
+                    </div>
+                    <p class="text-gray-400 max-w-md">
+                        Ofreciendo servicios de barbería premium y productos de alta calidad para el cuidado masculino.
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                        <i class="fab fa-tiktok text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap justify-center md:justify-between mb-8">
+                <div class="w-full md:w-auto mb-6 md:mb-0 text-center md:text-left">
+                    <h4 class="text-lg font-bold mb-4">Enlaces rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Inicio</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Servicios</a></li>
+                        <li><a href="#products" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Productos</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Galería</a></li>
+                    </ul>
+                </div>
+                
+                <div class="w-full md:w-auto mb-6 md:mb-0 text-center md:text-left">
+                    <h4 class="text-lg font-bold mb-4">Servicios</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Corte de Cabello</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Afeitado Tradicional</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Recorte de Barba</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-gold-500 transition-colors duration-300">Tratamiento Facial</a></li>
+                    </ul>
+                </div>
+                
+                <div class="w-full md:w-auto mb-6 md:mb-0 text-center md:text-left">
+                    <h4 class="text-lg font-bold mb-4">Contacto</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400"><i class="fas fa-map-marker-alt gold-text mr-2"></i> Av. Principal 123</li>
+                        <li class="text-gray-400"><i class="fas fa-phone-alt gold-text mr-2"></i> +52 123 456 7890</li>
+                        <li class="text-gray-400"><i class="fas fa-envelope gold-text mr-2"></i> info@goldencut.com</li>
+                    </ul>
+                </div>
+                
+                <div class="w-full md:w-auto text-center md:text-left">
+                    <h4 class="text-lg font-bold mb-4">Horario</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">Lunes - Viernes: 10:00 AM - 8:00 PM</li>
+                        <li class="text-gray-400">Sábado: 10:00 AM - 6:00 PM</li>
+                        <li class="text-gray-400">Domingo: Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; <span id="current-year">2025 MORICARP</span> Golden Cut Barbería. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Overlay for Mobile Menu -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-80 z-40 hidden"></div>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // Current Year for Copyright
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuContainer = document.getElementById('mobile-menu-container');
+        const overlay = document.getElementById('overlay');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuContainer.classList.toggle('hidden');
+            overlay.classList.toggle('hidden');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenuContainer.classList.add('hidden');
+            overlay.classList.add('hidden');
+            
+            // Close cart as well if it's open
+            const shoppingCart = document.getElementById('shopping-cart');
+            if (shoppingCart.classList.contains('translate-x-0')) {
+                shoppingCart.classList.remove('translate-x-0');
+                shoppingCart.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        });
+        
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                mobileMenuContainer.classList.add('hidden');
+                overlay.classList.add('hidden');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Account for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize Hero Slider
+        const heroSwiper = new Swiper('.heroSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+        
+        // Initialize Gallery Slider
+        const gallerySwiper = new Swiper('.gallerySwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+        
+        // Initialize Testimonials Slider
+        const testimonialSwiper = new Swiper('.testimonialSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Fade In Animation for Sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            gsap.fromTo(section, {
+                opacity: 0,
+                y: 50
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+        
+        // Animation for Service Cards
+        const serviceItems = document.querySelectorAll('.service-item');
+        serviceItems.forEach((item, index) => {
+            gsap.fromTo(item, {
+                opacity: 0,
+                x: index % 2 === 0 ? -50 : 50
+            }, {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: '#services',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+        
+        // Animation for Product Cards
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach((card, index) => {
+            gsap.fromTo(card, {
+                opacity: 0,
+                y: 50
+            }, { }, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                delay: index * 0.1,
+                scrollTrigger: {
+                    trigger: '#products',
+                    start: 'top 70%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+        
+        // Shopping Cart Functionality
+        const cartToggle = document.getElementById('cart-toggle');
+        const shoppingCart = document.getElementById('shopping-cart');
+        const closeCart = document.getElementById('close-cart');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        
+        let cart = [];
+        
+        // Open/Close Cart
+        cartToggle.addEventListener('click', () => {
+            shoppingCart.classList.toggle('translate-x-full');
+            shoppingCart.classList.toggle('translate-x-0');
+            overlay.classList.toggle('hidden');
+        });
+        
+        closeCart.addEventListener('click', () => {
+            shoppingCart.classList.remove('translate-x-0');
+            shoppingCart.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
+        });
+        
+        // Add to Cart
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const product = {
+                    id: button.dataset.id,
+                    name: button.dataset.name,
+                    price: parseFloat(button.dataset.price),
+                    image: button.dataset.image,
+                    quantity: 1
+                };
+                
+                addToCart(product);
+                updateCart();
+                
+                // Show notification
+                showNotification(`${product.name} añadido al carrito`);
+                
+                // Open cart
+                shoppingCart.classList.remove('translate-x-full');
+                shoppingCart.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+            });
+        });
+        
+        function addToCart(product) {
+            const existingProductIndex = cart.findIndex(item => item.id === product.id);
+            
+            if (existingProductIndex !== -1) {
+                cart[existingProductIndex].quantity++;
+            } else {
+                cart.push(product);
+            }
+            
+            // Update localStorage
+            localStorage.setItem('goldenCutCart', JSON.stringify(cart));
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            
+            // Update localStorage
+            localStorage.setItem('goldenCutCart', JSON.stringify(cart));
+            updateCart();
+        }
+        
+        function updateCart() {
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart text-center py-8 text-gray-400">
+                        <i class="fas fa-shopping-cart text-4xl mb-3"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+            } else {
+                checkoutBtn.disabled = false;
+                
+                cart.forEach(item => {
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.className = 'flex items-center border-b border-gray-700 py-4';
+                    cartItemElement.innerHTML = `
+                        <div class="w-16 h-16 rounded overflow-hidden mr-4">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-grow">
+                            <h4 class="font-bold">${item.name}</h4>
+                            <div class="flex items-center mt-1">
+                                <button class="decrease-quantity text-gray-400 hover:text-white px-2" data-id="${item.id}">-</button>
+                                <span class="mx-2">${item.quantity}</span>
+                                <button class="increase-quantity text-gray-400 hover:text-white px-2" data-id="${item.id}">+</button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="gold-text font-bold">$${(item.price * item.quantity).toFixed(2)}</div>
+                            <button class="remove-item text-gray-400 hover:text-red-500 mt-1" data-id="${item.id}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItemElement);
+                });
+                
+                // Add event listeners for cart item buttons
+                document.querySelectorAll('.decrease-quantity').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productId = button.dataset.id;
+                        decreaseQuantity(productId);
+                    });
+                });
+                
+                document.querySelectorAll('.increase-quantity').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productId = button.dataset.id;
+                        increaseQuantity(productId);
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const productId = button.dataset.id;
+                        removeFromCart(productId);
+                    });
+                });
+            }
+            
+            // Update total and count
+            const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            cartTotal.textContent = `$${totalAmount.toFixed(2)}`;
+            
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        function increaseQuantity(productId) {
+            const product = cart.find(item => item.id === productId);
+            if (product) {
+                product.quantity++;
+                localStorage.setItem('goldenCutCart', JSON.stringify(cart));
+                updateCart();
+            }
+        }
+        
+        function decreaseQuantity(productId) {
+            const product = cart.find(item => item.id === productId);
+            if (product && product.quantity > 1) {
+                product.quantity--;
+                localStorage.setItem('goldenCutCart', JSON.stringify(cart));
+                updateCart();
+            } else if (product && product.quantity === 1) {
+                removeFromCart(productId);
+            }
+        }
+        
+        // Check for existing cart in localStorage
+        window.addEventListener('load', () => {
+            const savedCart = localStorage.getItem('goldenCutCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        });
+        
+        // Checkout functionality
+        checkoutBtn.addEventListener('click', () => {
+            const cartSummary = cart.map(item => `${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}`).join('\n');
+            const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            
+            const message = `Hola, me gustaría realizar esta compra:\n\n${cartSummary}\n\nTotal: $${totalAmount.toFixed(2)}`;
+            
+            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+        
+        // Appointment booking functionality
+        const appointmentForm = document.getElementById('appointment-form');
+        
+        appointmentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const service = document.getElementById('service').value;
+            const notes = document.getElementById('notes').value;
+            
+            const message = `Hola, me gustaría agendar una cita:\n\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\nFecha: ${date}\nHora: ${time}\nServicio: ${service}\nNotas: ${notes}`;
+            
+            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+        
+        // Contact form functionality
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            
+            const whatsappMessage = `Nuevo mensaje de contacto:\n\nNombre: ${name}\nEmail: ${email}\nAsunto: ${subject}\nMensaje: ${message}`;
+            
+            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Alternatively, you could submit this to a server endpoint
+            // fetch('your-endpoint', {
+            //     method: 'POST',
+            //     body: JSON.stringify({ name, email, subject, message }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+            
+            contactForm.reset();
+            showNotification('Mensaje enviado con éxito');
+        });
+        
+        // Service booking function
+        function bookService(serviceName, price) {
+            document.getElementById('service').value = serviceName;
+            document.location.href = '#appointment';
+        }
+        
+        // Notification system
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-black border border-gold-500 text-white px-4 py-2 rounded-lg z-50 shadow-lg transform translate-y-full opacity-0 transition-all duration-300';
+            notification.innerHTML = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-y-full', 'opacity-0');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-y-full', 'opacity-0');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
