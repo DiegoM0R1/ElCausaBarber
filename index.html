@@ -815,6 +815,20 @@
     color: black;
     transform: rotate(90deg);
 }
+
+.logo-image {
+    width: 100px; /* Ajusta el ancho deseado */
+    height: 95px; /* Asegúrate de que la altura sea igual al ancho */
+    display: block;
+    border-radius: 100%; /* Para un círculo perfecto */
+    object-fit: cover; /* Asegura que la imagen cubra el área */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    
+}
+
+
+
     </style>
 </head>
 <body>
@@ -824,25 +838,21 @@
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
               <!-- HTML Structure for Logo -->
-    <div class="elcausa-logo">
-        <div class="logo-container">
-            <div class="logo-text">
-                <span class="top-text">BARBER SHOP</span>
-                <h1>ElCausa</h1>
-                <div class="logo-details">
-                    <span class="established">ANS JDS</span>
+              <div class="elcausa-logo">
+                <div class="logo-container">
+                   
+                    <a href="index.html"> <!-- Cambia "index.html" por la URL de tu página de inicio -->
+
+                    <!-- Aquí se agrega la imagen -->
+                    <img src="img/logoelcausabarber.png" alt="Logo de ElCausa" class="logo-image">
+                    </a>
                 </div>
             </div>
-            <div class="logo-icons">
-                <div class="mustache-icon"></div>
-                <div class="scissors-icon"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="text-2xl font-bold">
-        <span class="gold-text">ElCausa</span>Barber
-    </div>
+                
+    
+                </div>
+                <div class="text-2xl font-bold">
+                    <span class="gold-text">ElCausa</span>Barber
                 </div>
                 
                 <!-- Desktop Navigation -->
