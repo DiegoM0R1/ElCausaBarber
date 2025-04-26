@@ -8,20 +8,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
         :root {
             --color-gold: #D4AF37;
+            --color-gold-hover: #B8860B;
             --color-black: #0F0F0F;
-            --color-dark-gray: #333333;
+            --color-dark-gray: #1A1A1A;
+            --color-light-gray: #333333;
+        }
+        
+        * {
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
         
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--color-black);
             color: #fff;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
         }
         
         .gold-text {
             color: var(--color-gold);
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
         }
         
         .gold-bg {
@@ -32,10 +47,14 @@
             background-color: var(--color-dark-gray);
         }
         
+        .light-gray-bg {
+            background-color: var(--color-light-gray);
+        }
+        
         .nav-link {
             position: relative;
             padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .nav-link::after {
@@ -46,7 +65,12 @@
             bottom: 0;
             left: 50%;
             background-color: var(--color-gold);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .nav-link:hover {
+            color: var(--color-gold);
+            transform: translateY(-2px);
         }
         
         .nav-link:hover::after {
@@ -57,38 +81,83 @@
         .btn-gold {
             background-color: var(--color-gold);
             color: var(--color-black);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-gold:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.4s ease;
+            z-index: -1;
         }
         
         .btn-gold:hover {
-            background-color: #B8860B;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+            background-color: var(--color-gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-gold:hover:before {
+            left: 100%;
+        }
+        
+        .btn-gold:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(212, 175, 55, 0.3);
         }
         
         .product-card {
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 1px solid transparent;
+            transform-style: preserve-3d;
+            background: linear-gradient(145deg, #0F0F0F, #0A0A0A);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--color-gold);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        
+        .product-card img {
+            transition: all 0.5s ease;
+        }
+        
+        .product-card:hover img {
+            transform: scale(1.08);
         }
         
         .service-item {
             border-left: 3px solid transparent;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: linear-gradient(145deg, #1A1A1A, #151515);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .service-item:hover {
             border-left: 3px solid var(--color-gold);
-            padding-left: 1rem;
+            padding-left: 1.5rem;
+            transform: translateX(5px);
+            box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(212, 175, 55, 0.1);
         }
         
         .cart-icon {
             position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            transform: scale(1.1);
+            color: var(--color-gold);
         }
         
         .cart-count {
@@ -105,11 +174,18 @@
             justify-content: center;
             font-size: 12px;
             font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cart-icon:hover .cart-count {
+            transform: scale(1.1);
         }
         
         .swiper {
             width: 100%;
             height: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         .swiper-slide {
@@ -119,26 +195,73 @@
             align-items: center;
             background-size: cover;
             background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .swiper-slide img {
+            transition: transform 10s ease;
+        }
+        
+        .swiper-slide-active img {
+            transform: scale(1.1);
+        }
+        
+        .swiper-slide-content {
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease 0.3s;
+        }
+        
+        .swiper-slide-active .swiper-slide-content {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .swiper-button-next, .swiper-button-prev {
             color: var(--color-gold) !important;
+            background: rgba(15, 15, 15, 0.5);
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: rgba(15, 15, 15, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 20px !important;
+        }
+        
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
         }
         
         .swiper-pagination-bullet-active {
             background-color: var(--color-gold) !important;
+            width: 30px;
+            border-radius: 6px;
         }
         
         .appointment-input {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--color-dark-gray);
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-light-gray);
             color: white;
             transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         .appointment-input:focus {
             border-color: var(--color-gold);
-            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
         }
         
         .cart-item-enter {
@@ -149,7 +272,7 @@
         .cart-item-enter-active {
             opacity: 1;
             transform: translateX(0);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .cart-item-exit {
@@ -159,13 +282,314 @@
         .cart-item-exit-active {
             opacity: 0;
             transform: translateX(-20px);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::before, .section-title::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: all 0.5s ease;
+        }
+        
+        .section-title::before {
+            width: 100px;
+            background-color: var(--color-gold);
+        }
+        
+        .section-title::after {
+            width: 50px;
+            bottom: -15px;
+            background-color: var(--color-gold-hover);
+        }
+        
+        .hover-zoom {
+            overflow: hidden;
+        }
+        
+        .hover-zoom img {
+            transition: transform 0.5s ease;
+        }
+        
+        .hover-zoom:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .gallery-item.in-view {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gallery-item img {
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            bottom: 0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-light-gray);
+            color: white;
             transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--color-gold);
+            color: var(--color-black);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--color-dark-gray);
+            border-left: 4px solid var(--color-gold);
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Reveal Animation for Sections */
+        .reveal {
+            position: relative;
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+        }
+        
+        .reveal-left {
+            transform: translateX(-100px);
+        }
+        
+        .reveal-right {
+            transform: translateX(100px);
+        }
+        
+        .reveal-up {
+            transform: translateY(100px);
+        }
+        
+        .reveal.active {
+            transform: translate(0);
+        }
+        
+        /* Advanced Card Effects */
+        .barber-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .barber-card:hover {
+            transform: translateY(-20px) rotateX(10deg);
+        }
+        
+        .barber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 60%, var(--color-black));
+            z-index: 1;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .barber-card:hover::before {
+            opacity: 0.9;
+        }
+        
+        .barber-card .barber-socials {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            z-index: 2;
+            transition: bottom 0.4s ease;
+        }
+        
+        .barber-card:hover .barber-socials {
+            bottom: 20px;
+        }
+        
+        /* Service Highlighting */
+        .service-highlight {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .service-highlight::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: top 0.8s ease;
+            z-index: -1;
+        }
+        
+        .service-highlight:hover::before {
+            top: 100%;
+        }
+        
+        /* Custom Loader */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--color-dark-gray);
+            border-radius: 50%;
+            border-top-color: var(--color-gold);
+            animation: spin 1s infinite ease-in-out;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 3D Button Effect */
+        .btn-3d {
+            position: relative;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .btn-3d::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: var(--color-gold-hover);
+            transform: translateZ(-10px);
+            border-radius: inherit;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-3d:hover {
+            transform: translateY(-5px) translateZ(20px);
+        }
+        
+        .btn-3d:hover::before {
+            opacity: 1;
+            transform: translateZ(-20px);
+        }
+        
+        /* Glowing Effect */
+        .glow-on-hover {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glow-on-hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            transition: all 0.6s ease;
+            transform: skewX(-25deg);
+        }
+        
+        .glow-on-hover:hover::after {
+            left: 150%;
+        }
+        
+        /* Custom Image Frame */
+        .custom-frame {
+            position: relative;
+            padding: 10px;
+        }
+        
+        .custom-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid var(--color-gold);
+            transform: scale(1.1);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .custom-frame:hover::before {
+            transform: scale(1);
+            opacity: 1;
         }
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .swiper {
-                height: 300px;
+                height: 350px;
             }
             
             .desktop-menu {
@@ -174,6 +598,10 @@
             
             .mobile-menu {
                 display: block;
+            }
+            
+            .reveal-left, .reveal-right {
+                transform: translateX(0) translateY(50px);
             }
         }
         
@@ -189,92 +617,203 @@
         
         /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
+            width: 10px;
             background: var(--color-black);
         }
         
+        ::-webkit-scrollbar-track {
+            background: var(--color-dark-gray);
+            border-radius: 5px;
+        }
+        
         ::-webkit-scrollbar-thumb {
-            background: var(--color-gold);
-            border-radius: 4px;
+            background: linear-gradient(to bottom, var(--color-gold), var(--color-gold-hover));
+            border-radius: 5px;
+            border: 2px solid var(--color-dark-gray);
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background: #B8860B;
+            background: linear-gradient(to bottom, var(--color-gold-hover), var(--color-gold));
         }
 
         .elcausa-logo {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #1c1c1c, #0f0f0f);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 -2px 5px rgba(255,255,255,0.1), inset 0 2px 5px rgba(0,0,0,0.5);
+            transition: all 0.5s ease;
+        }
+        
+        .elcausa-logo:hover {
+            transform: rotate(10deg) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7), 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .logo-container {
+            text-align: center;
+            color: var(--color-gold);
+            transform: scale(0.8);
+            margin: -15px;
+            transition: all 0.4s ease;
+        }
+        
+        .elcausa-logo:hover .logo-container {
+            transform: scale(0.85);
+        }
+
+        .logo-text .top-text {
+            display: block;
+            font-size: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            color: var(--color-gold);
+            transition: all 0.3s ease;
+        }
+        
+        .elcausa-logo:hover .top-text {
+            letter-spacing: 1.5px;
+        }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            line-height: 1;
+            margin: 0;
+            color: var(--color-gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .elcausa-logo:hover .logo-text h1 {
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .logo-details .established {
+            display: block;
+            font-size: 6px;
+            letter-spacing: 1px;
+            margin-top: 2px;
+            color: var(--color-gold);
+        }
+
+        .logo-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .elcausa-logo:hover .logo-icons {
+            transform: scale(1.1);
+        }
+
+        .mustache-icon {
+            width: 20px;
+            height: 8px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><path d="M10 20 Q25 5, 40 20 Q55 35, 70 20 Q85 5, 90 20" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-right: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .scissors-icon {
+            width: 12px;
+            height: 12px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 40 L70 60 M30 60 L70 40" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+            transition: all 0.3s ease;
+        }
+        
+        .elcausa-logo:hover .scissors-icon {
+            transform: rotate(30deg);
+        }
+
+        /* Estilos para las pestañas de la galería */
+.gallery-tab {
     position: relative;
-    width: 80px;
-    height: 80px;
-    background-color: #1c1c1c;
+    color: #fff;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery-tab.active {
+    color: var(--color-gold);
+    opacity: 1;
+}
+
+.gallery-tab::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-gold);
+    transition: all 0.3s ease;
+}
+
+.gallery-tab.active::after {
+    width: 50%;
+}
+
+/* Animación para elementos de galería */
+.gallery-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.gallery-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-item video {
+    background-color: black;
+    cursor: pointer;
+}
+
+/* Estilo para el lightbox */
+#gallery-lightbox {
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+#gallery-lightbox.animate__fadeIn {
+    animation-duration: 0.3s;
+}
+
+#gallery-lightbox.animate__fadeOut {
+    animation-duration: 0.3s;
+}
+
+/* Mejorar el botón de cierre */
+#close-lightbox {
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.5);
 }
 
-.logo-container {
-    text-align: center;
-    color: #ffd700;
-    transform: scale(0.8);
-    margin: -15px;
-}
-
-.logo-text .top-text {
-    display: block;
-    font-size: 6px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-    color: #ffd700;
-}
-
-.logo-text h1 {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 20px;
-    line-height: 1;
-    margin: 0;
-    color: #ffd700;
-}
-
-.logo-details .established {
-    display: block;
-    font-size: 6px;
-    letter-spacing: 1px;
-    margin-top: 2px;
-    color: #ffd700;
-}
-
-.logo-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3px;
-}
-
-.mustache-icon {
-    width: 20px;
-    height: 8px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><path d="M10 20 Q25 5, 40 20 Q55 35, 70 20 Q85 5, 90 20" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
-    background-repeat: no-repeat;
-    background-size: contain;
-    margin-right: 3px;
-}
-
-.scissors-icon {
-    width: 12px;
-    height: 12px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 40 L70 60 M30 60 L70 40" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.gold-text {
-    color: #FFD700;
+#close-lightbox:hover {
+    background: var(--color-gold);
+    color: black;
+    transform: rotate(90deg);
 }
     </style>
 </head>
@@ -717,10 +1256,8 @@
                                 data-price="45.50"
                                 data-image="https://media.istockphoto.com/id/176847493/es/foto/antiguo-cl%C3%A1sico-de-cuchilla-recta.jpg?s=612x612&w=0&k=20&c=hi7qNxBZRdl7J9N4fHiAA74M12ykGoCeSuGjNzS1HfI=">
                             Añadir al carrito
-                        </button
-                        data-image="https://media.istockphoto.com/id/176847493/es/foto/antiguo-cl%C3%A1sico-de-cuchilla-recta.jpg?s=612x612&w=0&k=20&c=hi7qNxBZRdl7J9N4fHiAA74M12ykGoCeSuGjNzS1HfI=">
-                            Añadir al carrito
-                        </button>
+                    </button>
+                        
                     </div>
                 </div>
                 
@@ -764,60 +1301,179 @@
             </div>
         </div>
     </section>
-    
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-16 bg-black">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold">Nuestra <span class="gold-text">Galería</span></h2>
-                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-                <p class="mt-4 max-w-2xl mx-auto">
-                    Explora nuestros mejores trabajos y la experiencia que ofrecemos en ElCausaBarber.
-                </p>
+    <!-- Haircuts Section -->
+<section id="haircuts" class="py-16 bg-black">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Nuestros <span class="gold-text">Cortes</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Explora nuestra variedad de estilos y cortes modernos.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Haircut 1 -->
+            <div class="haircut-item bg-gray-900 rounded-lg overflow-hidden">
+                <img src="img/corte/corte1.jpg" alt="Corte Clásico" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">Corte Clásico</h3>
+                    <p class="text-gray-400 mb-4">Un estilo atemporal que nunca pasa de moda.</p>
+                    <button class="btn-gold py-2 px-4 rounded" onclick="openHaircutModal('Corte Clásico', '/api/placeholder/400/300')">
+                        Ver más
+                    </button>
+                </div>
+            </div>
+           
+            <div class="haircut-item bg-gray-900 rounded-lg overflow-hidden">
+                <img src="img/corte/corte2.jpg" alt="Corte Clásico" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">Corte Moderno</h3>
+                    <p class="text-gray-400 mb-4">Un estilo atemporal que nunca pasa de moda.</p>
+                    <button class="btn-gold py-2 px-4 rounded" onclick="openHaircutModal('Corte Clásico', '/api/placeholder/400/300')">
+                        Ver más
+                    </button>
+                </div>
+            </div>
+
+            
+            <!-- More haircuts can be added similarly -->
+        </div>
+    </div>
+</section>
+
+<!-- Haircut Modal -->
+<div id="haircut-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-center justify-center p-4">
+    <div class="bg-gray-900 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+        <div class="flex justify-between items-center p-6 border-b border-gray-800">
+            <h2 id="haircut-modal-title" class="text-2xl font-bold">Corte</h2>
+            <button id="close-haircut-modal" class="text-white hover:text-gold-500">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <img id="haircut-modal-image" src="" alt="Corte" class="w-full rounded-lg mb-4">
+                    <div class="grid grid-cols-3 gap-2">
+                        <!-- Additional images or video thumbnails can be added here -->
+                        <img src="/api/placeholder/200/200" alt="Detalle 1" class="w-full rounded">
+                        <img src="/api/placeholder/200/200" alt="Detalle 2" class="w-full rounded">
+                        <img src="/api/placeholder/200/200" alt="Detalle 3" class="w-full rounded">
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Descripción del Corte</h3>
+                    <p id="haircut-modal-description" class="text-gray-400 mb-4">
+                        Descripción detallada del corte de cabello.
+                    </p>
+                    <div class="bg-gray-800 p-4 rounded">
+                        <h4 class="font-bold mb-2">Detalles</h4>
+                        <ul class="list-disc list-inside text-gray-400">
+                            <li>Duración aproximada: 30-45 minutos</li>
+                            <li>Recomendado para: Todo tipo de cabello</li>
+                            <li>Mantenimiento: Cada 4-6 semanas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Barbers Team Section -->
+<section id="team" class="py-16 dark-gray-bg">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Nuestro <span class="gold-text">Equipo</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Conoce a los profesionales detrás de ElCausaBarber.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Barber 1 -->
+            <div class="barber-card bg-black rounded-lg overflow-hidden shadow-lg">
+                <img src="https://scontent.fcix2-1.fna.fbcdn.net/v/t39.30808-6/490538381_1236274411554183_1992034732544698066_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeEXPGfM8QOMrH488hIUiIpzKKPBJqmqQL8oo8EmqapAv_E2-L2-nfwKkhRNm6Kk4KNyw3vFXoOdNQ9VzCwSkH2B&_nc_ohc=SC6v_XDhk4sQ7kNvwE8IxVR&_nc_oc=AdmraBpWrU0IOVScyPWDlBzrKSfncWQmyG1TbKll-S8vHME4CegXHTBQgGcucSQy0nE&_nc_zt=23&_nc_ht=scontent.fcix2-1.fna&_nc_gid=6qyvrV-RmqV1avDMdyI5Lg&oh=00_AfG3euzgLgltYsY9OBz7fwbjJR-OG4rO-ZKUMN3_8TSI4g&oe=68122E9E" alt="Barbero" class="w-full h-64 object-cover">
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold mb-2">Diego Neythan</h3>
+                    <p class="text-gray-400 mb-4">Master Barber</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://www.instagram.com/elcausa.barber/" class="text-gold-500 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/groups/1335403296960722/user/100055149073552/" class="text-gold-500 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             
-            <div class="swiper gallerySwiper">
+            <!-- More barbers can be added similarly -->
+        </div>
+    </div>
+</section>
+
+
+    <!-- Gallery Section -->
+<section id="gallery" class="py-16 bg-black">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Nuestra <span class="gold-text">Galería</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Explora nuestros mejores trabajos y la experiencia que ofrecemos en ElCausaBarber.
+            </p>
+            
+            <!-- Tabs para separar fotos y videos -->
+            <div class="flex justify-center mt-8 mb-10 border-b border-gray-800">
+                <button id="photos-tab" class="py-3 px-6 font-medium focus:outline-none relative gallery-tab active">
+                    <i class="fas fa-image mr-2"></i> Fotos
+                    <span class="tab-indicator"></span>
+                </button>
+                <button id="videos-tab" class="py-3 px-6 font-medium focus:outline-none relative gallery-tab">
+                    <i class="fas fa-video mr-2"></i> Videos
+                    <span class="tab-indicator"></span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Contenedor para fotos -->
+        <div id="photos-container" class="gallery-container">
+            <!-- Slider para fotos destacadas -->
+            <div class="swiper gallerySwiper mb-8">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="/api/placeholder/800/500" alt="Trabajo 1" class="w-full h-full object-cover rounded-lg" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="/api/placeholder/800/500" alt="Trabajo 2" class="w-full h-full object-cover rounded-lg" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="/api/placeholder/800/500" alt="Trabajo 3" class="w-full h-full object-cover rounded-lg" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="/api/placeholder/800/500" alt="Trabajo 4" class="w-full h-full object-cover rounded-lg" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="/api/placeholder/800/500" alt="Trabajo 5" class="w-full h-full object-cover rounded-lg" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="/api/placeholder/800/500" alt="Trabajo 6" class="w-full h-full object-cover rounded-lg" />
-                    </div>
+                    <!-- Aquí irán tus slides de fotos -->
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                <div class="overflow-hidden rounded-lg">
-                    <img src="/api/placeholder/300/300" alt="Galería 1" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div class="overflow-hidden rounded-lg">
-                    <img src="/api/placeholder/300/300" alt="Galería 2" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div class="overflow-hidden rounded-lg">
-                    <img src="/api/placeholder/300/300" alt="Galería 3" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
-                </div>
-                <div class="overflow-hidden rounded-lg">
-                    <img src="/api/placeholder/300/300" alt="Galería 4" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300" />
-                </div>
-            </div>
+            <!-- Grid de miniaturas de fotos -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="photos-grid"></div>
         </div>
-    </section>
+        
+        <!-- Contenedor para videos (inicialmente oculto) -->
+        <div id="videos-container" class="gallery-container hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="videos-grid"></div>
+            <div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox para galería -->
+<div id="gallery-lightbox" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+    <div class="max-w-4xl w-full max-h-90vh relative">
+        <button id="close-lightbox" class="absolute top-4 right-4 text-white hover:text-gold-500 z-10">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        <div id="lightbox-content" class="w-full h-full flex items-center justify-center">
+            <!-- Aquí se insertará dinámicamente la imagen o video -->
+        </div>
+    </div>
+</div>
     
     <!-- Appointment Section -->
     <section id="appointment" class="py-16 dark-gray-bg">
@@ -885,89 +1541,42 @@
         </div>
     </section>
     
-    <!-- Testimonials Section -->
-    <section class="py-16 bg-black">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold">Lo que dicen nuestros <span class="gold-text">Clientes</span></h2>
-                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-            </div>
-            
-            <div class="swiper testimonialSwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="dark-gray-bg p-6 rounded-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
-                                    <img src="/api/placeholder/100/100" alt="Cliente" class="w-full h-full object-cover" />
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">Miguel Rodríguez</h4>
-                                    <div class="text-gold-500">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-400 italic">
-                                "La mejor barbería que he visitado. El servicio es impecable y siempre salgo satisfecho con mi corte. El ambiente es muy agradable y los barberos son verdaderos profesionales."
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="swiper-slide">
-                        <div class="dark-gray-bg p-6 rounded-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
-                                    <img src="/api/placeholder/100/100" alt="Cliente" class="w-full h-full object-cover" />
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">Carlos Mendoza</h4>
-                                    <div class="text-gold-500">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-400 italic">
-                                "Excelentes productos y un servicio de primera. Me encanta el aceite para barba, ha mejorado mucho la textura y apariencia de mi barba. Totalmente recomendado."
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="swiper-slide">
-                        <div class="dark-gray-bg p-6 rounded-lg">
-                            <div class="flex items-center mb-4">
-                                <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
-                                    <img src="/api/placeholder/100/100" alt="Cliente" class="w-full h-full object-cover" />
-                                </div>
-                                <div>
-                                    <h4 class="font-bold">Javier López</h4>
-                                    <div class="text-gold-500">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="text-gray-400 italic">
-                                "Desde que descubrí ElCausaBarber, no voy a otra barbería. El ambiente es increíble, los barberos saben exactamente lo que quiero y los productos son de alta calidad."
-                            </p>
-                        </div>
+    <!-- Google Reviews Section -->
+<section id="google-reviews" class="py-16 dark-gray-bg">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Lo que dicen nuestros <span class="gold-text">Clientes</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Opiniones reales de nuestros clientes en Google Maps
+            </p>
+        </div>
+        
+        <div id="google-reviews-container" class="swiper google-reviews-swiper">
+            <div class="swiper-wrapper" id="reviews-wrapper">
+                <!-- Reviews will be dynamically inserted here -->
+                <div class="swiper-slide text-center">
+                    <div class="bg-black p-6 rounded-lg max-w-xl mx-auto">
+                        <p class="text-gray-400 italic mb-4">
+                            Cargando reseñas...
+                        </p>
                     </div>
                 </div>
-                <div class="swiper-pagination"></div>
             </div>
+            <div class="swiper-pagination"></div>
         </div>
-    </section>
+        
+        <div class="text-center mt-8">
+            <a href="https://www.google.com/maps/place/El+causa+barbier/@45.5366656,-73.6061497,17z/data=!4m8!3m7!1s0x4cc919206fbdb4c3:0x20f1bcf9fdbe9b6c!8m2!3d45.5366656!4d-73.604561!9m1!1b1!16s%2Fg%2F11f6qhxw5f" 
+               target="_blank" 
+               class="btn-gold py-3 px-6 rounded-lg inline-block">
+                Ver todas las reseñas en Google
+            </a>
+        </div>
+    </div>
+</section>
+
+
     
     <!-- Contact Section -->
     <section id="contact" class="py-16 dark-gray-bg">
@@ -1020,25 +1629,39 @@
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold">Horario</h4>
-                                <p class="text-gray-400">Lunes - Sábado: 10:00 AM - 8:00 PM</p>
-                                <p class="text-gray-400">Domingo: Cerrado</p>
+                                <!-- Opening Hours Section -->
+
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Nuestros <span class="gold-text">Horarios</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+        </div>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400">Lunes: 1:00 PM - 8:00 PM</li>
+                        <li class="text-gray-400">Martes: 1:00 PM - 5:30 PM</li>
+                        <li class="text-gray-400">Miércoles: 1:00 PM - 8:00 PM</li>
+                        <li class="text-gray-400">Jueves: 1:00 PM - 8:00 PM</li>
+                        <li class="text-gray-400">Viernes: 10:00 AM - 8:00 PM</li>
+                        <li class="text-gray-400">Sábado: 10:00 AM - 8:00 PM</li>
+                        <li class="text-gray-400">Domingo: 10:00 AM - 2:00 PM</li>
+                    </ul>
+           
+
                             </div>
                         </div>
                         
                         <div class="mt-6">
                             <h4 class="font-bold mb-2">Síguenos</h4>
                             <div class="flex space-x-4">
-                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                <a href="https://www.facebook.com/groups/1335403296960722/user/100055149073552/" class="gold-text hover:text-white transition-colors duration-300">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                <a href="https://www.instagram.com/elcausa.barber/" class="gold-text hover:text-white transition-colors duration-300">
                                     <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
-                                    <i class="fab fa-twitter"></i>
+                                <a href="https://wa.me/14183826830" class="gold-text hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-whatsapp"></i>
                                 </a>
-                                <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                                <a href="https://www.tiktok.com/@elcausa.barber?_t=ZM-8rxBGtvyUlD&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAadjgfS80NLtzKolpDUi2ZfFzt4MaP6ils0Z6LYmASQwfRyvF35YcT2yrhd1sw_aem_DFkMemPwCZrfn_t0M-BJ8Q" class="gold-text hover:text-white transition-colors duration-300">
                                     <i class="fab fa-tiktok"></i>
                                 </a>
                             </div>
@@ -1076,7 +1699,45 @@
             </div>
         </div>
     </section>
-    
+    <!-- Ubicación Section -->
+<section id="location" class="py-16 bg-black">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Nuestra <span class="gold-text">Ubicación</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Encuéntranos fácilmente en el corazón de Montreal
+            </p>
+        </div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="rounded-lg overflow-hidden shadow-2xl border-4 border-gold-500">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.6789628566935!2d-73.60614972389101!3d45.53666557107524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc919206fbdb4c3%3A0x20f1bcf9fdbe9b6c!2sEl%20causa%20barbier!5e0!3m2!1sen!2spe!4v1745611347588!5m2!1sen!2spe" 
+                    width="100%" 
+                    height="600" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <h3 class="text-2xl font-bold mb-4">Dirección Exacta</h3>
+                <p class="text-gray-400 text-lg">
+                    El causa barbier, 6539 Rue St-Hubert, Montreal, Quebec H2S 2M5
+                    <br>Centro Comercial Elegante, Local 45
+                </p>
+                <a href="https://maps.google.com/maps?q=El+causa+barbier,+6539+Rue+St-Hubert,+Montreal,+Quebec+H2S+2M5" 
+                   target="_blank" 
+                   class="inline-block btn-gold py-3 px-6 rounded-lg mt-4 hover:scale-105 transition-transform">
+                    Abrir en Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Footer -->
     <footer class="bg-black py-12">
         <div class="container mx-auto px-4">
@@ -1091,15 +1752,13 @@
                 </div>
                 
                 <div class="flex space-x-6">
-                    <a href="#" class="gold-text hover:text-white transition-colors duration-300">
+                    <a href="https://www.facebook.com/groups/1335403296960722/user/100055149073552/" class="gold-text hover:text-white transition-colors duration-300">
                         <i class="fab fa-facebook-f text-xl"></i>
                     </a>
                     <a href="https://www.instagram.com/elcausa.barber/" class="gold-text hover:text-white transition-colors duration-300">
                         <i class="fab fa-instagram text-xl"></i>
                     </a>
-                    <a href="#" class="gold-text hover:text-white transition-colors duration-300">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
+                   
                     <a href="https://www.tiktok.com/@elcausa.barber?_t=ZM-8rxBGtvyUlD&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAadjgfS80NLtzKolpDUi2ZfFzt4MaP6ils0Z6LYmASQwfRyvF35YcT2yrhd1sw_aem_DFkMemPwCZrfn_t0M-BJ8Q" class="gold-text hover:text-white transition-colors duration-300">
                         <i class="fab fa-tiktok text-xl"></i>
                     </a>
@@ -1139,9 +1798,13 @@
                 <div class="w-full md:w-auto text-center md:text-left">
                     <h4 class="text-lg font-bold mb-4">Horario</h4>
                     <ul class="space-y-2">
-                        <li class="text-gray-400">Lunes - Viernes: 10:00 AM - 8:00 PM</li>
-                        <li class="text-gray-400">Sábado: 10:00 AM - 6:00 PM</li>
-                        <li class="text-gray-400">Domingo: Cerrado</li>
+                        <li class="text-gray-400">Lunes: 1:00 PM - 8:00 PM</li>
+                        <li class="text-gray-400">Martes: 1:00 PM - 5:30 PM</li>
+                        <li class="text-gray-400">Miércoles: 1:00 PM - 8:00 PM</li>
+                        <li class="text-gray-400">Jueves: 1:00 PM - 8:00 PM</li>
+                        <li class="text-gray-400">Viernes: 10:00 AM - 8:00 PM</li>
+                        <li class="text-gray-400">Sábado: 10:00 AM - 8:00 PM</li>
+                        <li class="text-gray-400">Domingo: 10:00 AM - 2:00 PM</li>
                     </ul>
                 </div>
             </div>
@@ -1163,6 +1826,63 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     
     <script>
+
+        // Agregar esto antes de todas las demás funciones
+function isVideoFile(filename) {
+    return /\.(mp4|webm|ogg)$/i.test(filename);
+}
+
+// Renombra las referencias a isVideo por isVideoFile
+// O define un alias así:
+const isVideo = isVideoFile;
+
+// Función para animar elementos al hacer scroll
+function revealOnScroll() {
+    const revealElements = document.querySelectorAll('.gallery-item, .reveal, .service-item, .product-card');
+    
+    revealElements.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('in-view');
+            
+            // Para elementos específicos con la clase 'reveal', también añadir 'active'
+            if (element.classList.contains('reveal')) {
+                element.classList.add('active');
+            }
+        }
+    });
+}
+
+// Añadir listener para el scroll
+window.addEventListener('scroll', revealOnScroll);
+// También llamar al cargar la página
+window.addEventListener('load', revealOnScroll);
+
+function openHaircutModal(title, imageSrc) {
+    const modal = document.getElementById('haircut-modal');
+    const modalTitle = document.getElementById('haircut-modal-title');
+    const modalImage = document.getElementById('haircut-modal-image');
+    const modalDescription = document.getElementById('haircut-modal-description');
+    
+    modalTitle.textContent = title;
+    modalImage.src = imageSrc;
+    
+    // You can add dynamic description based on the haircut
+    modalDescription.textContent = `Un estilo ${title.toLowerCase()} que resalta tu personalidad y estilo único.`;
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+
+document.getElementById('close-haircut-modal').addEventListener('click', () => {
+    const modal = document.getElementById('haircut-modal');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+});
+
         // Current Year for Copyright
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
@@ -1619,6 +2339,659 @@ checkoutBtn.addEventListener('click', () => {
                 }, 300);
             }, 3000);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+    // Note: This is a placeholder. In a real implementation, 
+    // you would need a backend service to fetch reviews
+    const mockReviews = [
+        {
+            author_name: "Andrea Correa",
+            rating: 5,
+            text: "Best service ever, El causa has such an amazing customer service, very professional, super recommended.",
+            profile_photo_url: "https://lh3.googleusercontent.com/a/ACg8ocKQcP0vhsq1TSluNGuiRmw7ZqJIjmQouQUQwsxnFX7sXVtygg=w45-h45-p-rp-mo-br100"
+        },
+        {
+            author_name: "Nicolas Alexander",
+            rating: 4,
+            text: "The best service and a perfect place for a haircut 🙌🏻",
+            profile_photo_url: "https://lh3.googleusercontent.com/a-/ALV-UjUnhOGWtJZ2A431FpS0Sb3aEWACgV8aoFmh4JF5fo_tjhRBW1sl=w45-h45-p-rp-mo-ba2-br100"
+        },
+        {
+            author_name: "JiDii O'Alowra",
+            rating: 5,
+            text: "Diego is super talented. Efficient and precise.His prices are very good, I recommend this new barber who is located on rue St Hubert.",
+            profile_photo_url: "https://lh3.googleusercontent.com/a-/ALV-UjXW9DVyb5kG0t13VMs-eieQgU6S8zsxyE7HfmIouChLY5Umruf4wg=w45-h45-p-rp-mo-ba6-br100-"
+        }
+    ];
+// Agregar al final de tu archivo JavaScript o dentro de tu DOMContentLoaded event listener
+
+// 1. Mejorar la funcionalidad del lightbox para videos
+const lightbox = document.getElementById('gallery-lightbox');
+const lightboxContent = document.getElementById('lightbox-content');
+const closeLightbox = document.getElementById('close-lightbox');
+
+// Función mejorada para cerrar el lightbox
+function closeVideoLightbox() {
+    // Añadir clase de animación de salida
+    lightbox.classList.add('animate__fadeOut');
+    
+    // Detener todos los videos que estén reproduciéndose
+    const activeVideos = lightbox.querySelectorAll('video');
+    activeVideos.forEach(video => {
+        if (!video.paused) {
+            video.pause();
+        }
+    });
+    
+    // Ocultar lightbox después de la animación
+    setTimeout(() => {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex', 'animate__fadeOut', 'animate__fadeIn');
+        lightboxContent.innerHTML = ''; // Limpiar contenido
+    }, 300);
+}
+
+// Asignar evento de clic al botón de cierre
+if (closeLightbox) {
+    closeLightbox.addEventListener('click', closeVideoLightbox);
+}
+
+// Cerrar lightbox con tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+        closeVideoLightbox();
+    }
+});
+
+// Cerrar lightbox al hacer clic fuera del contenido
+if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+        // Si el clic fue directamente en el fondo (no en el contenido)
+        if (e.target === lightbox) {
+            closeVideoLightbox();
+        }
+    });
+}
+
+// 2. Mejorar la reproducción de videos en la galería
+document.querySelectorAll('#videos-grid video').forEach(video => {
+    // Agregar controles básicos
+    video.controls = true;
+    
+    // Evitar que los videos se reproduzcan automáticamente
+    video.autoplay = false;
+    
+    // Precargar solo los metadatos para mejorar el rendimiento
+    video.preload = 'metadata';
+    
+    // Controlar que solo se reproduzca un video a la vez
+    video.addEventListener('play', function() {
+        document.querySelectorAll('#videos-grid video').forEach(otherVideo => {
+            if (otherVideo !== video && !otherVideo.paused) {
+                otherVideo.pause();
+            }
+        });
+    });
+    
+    // Mejorar la interacción al hacer clic
+    const videoContainer = video.closest('.gallery-item');
+    if (videoContainer) {
+        // Añadir un botón de reproducción superpuesto para mejor UX
+        const playButton = document.createElement('div');
+        playButton.className = 'absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 hover:bg-opacity-40 transition-all duration-300';
+        playButton.innerHTML = '<i class="fas fa-play text-white text-4xl"></i>';
+        playButton.style.cursor = 'pointer';
+        
+        // Solo mostrar el botón cuando el video está pausado
+        if (!video.autoplay) {
+            videoContainer.appendChild(playButton);
+        }
+        
+        // Toggle play/pause al hacer clic en el botón
+        playButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evitar que se abra el lightbox
+            if (video.paused) {
+                video.play();
+                playButton.style.display = 'none';
+            }
+        });
+        
+        // Mostrar botón cuando el video se pausa
+        video.addEventListener('pause', () => {
+            playButton.style.display = 'flex';
+        });
+        
+        // Ocultar botón cuando el video se reproduce
+        video.addEventListener('play', () => {
+            playButton.style.display = 'none';
+        });
+    }
+});
+
+// 3. Mejorar el comportamiento de clic en videos (evitar abrir lightbox al interactuar con controles)
+document.querySelectorAll('.gallery-item video').forEach(video => {
+    video.addEventListener('click', (e) => {
+        // Permitir que los controles nativos del video funcionen sin abrir el lightbox
+        e.stopPropagation();
+    });
+    
+    // El contenedor sigue abriendo el lightbox
+    const container = video.closest('.gallery-item');
+    container.addEventListener('click', (e) => {
+        // Si el clic fue en los controles del video, no hacer nada
+        if (e.target === video || video.contains(e.target)) {
+            return;
+        }
+        
+        // De lo contrario, abrir en el lightbox
+        lightboxContent.innerHTML = '';
+        
+        const videoClone = document.createElement('video');
+        videoClone.src = video.src;
+        videoClone.className = 'max-w-full max-h-90vh';
+        videoClone.controls = true;
+        videoClone.autoplay = true;
+        
+        lightboxContent.appendChild(videoClone);
+        
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex', 'animate__fadeIn');
+    });
+});
+    function renderReviews(reviews) {
+        const reviewsWrapper = document.getElementById('reviews-wrapper');
+        reviewsWrapper.innerHTML = reviews.map(review => `
+            <div class="swiper-slide">
+                <div class="dark-gray-bg p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+                            <img src="${review.profile_photo_url}" alt="${review.author_name}" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">${review.author_name}</h4>
+                            <div class="text-gold-500">
+                                ${Array(Math.floor(review.rating)).fill('<i class="fas fa-star"></i>').join('')}
+                                ${review.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic">
+                        "${review.text}"
+                    </p>
+                </div>
+            </div>
+        `).join('');
+
+        // Reinitialize Swiper for the reviews
+        if (window.innerWidth >= 640) {
+            new Swiper('.google-reviews-swiper', {
+                slidesPerView: window.innerWidth >= 1024 ? 3 : 2,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+            });
+        } else {
+            new Swiper('.google-reviews-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+            });
+        }
+    }
+
+    // Render mock reviews (replace with actual API call in production)
+    renderReviews(mockReviews);
+});
+
+
+
+// Función para crear un elemento de galería con soporte para videos e imágenes
+function createGalleryItem(source, isVideo = false, title = '') {
+    const galleryItem = document.createElement('div');
+    galleryItem.className = 'gallery-item hover-zoom rounded-lg overflow-hidden shadow-lg relative';
+    
+    if (isVideo) {
+        // Crear contenedor de video con controles
+        const video = document.createElement('video');
+        video.className = 'w-full h-full object-cover';
+        video.src = source;
+        video.controls = true;
+        video.preload = 'metadata';
+        video.poster = source + '?poster'; // Puedes usar una imagen de poster o generar una
+        
+        // Añadir indicador de video
+        const videoIndicator = document.createElement('div');
+        videoIndicator.className = 'absolute top-3 right-3 bg-black bg-opacity-70 rounded-full p-2 z-10';
+        videoIndicator.innerHTML = '<i class="fas fa-video text-gold-500"></i>';
+        
+        galleryItem.appendChild(video);
+        galleryItem.appendChild(videoIndicator);
+    } else {
+        // Para imágenes
+        const img = document.createElement('img');
+        img.src = source;
+        img.alt = title || 'Galería';
+        img.className = 'w-full h-full object-cover transition-transform duration-500';
+        
+        galleryItem.appendChild(img);
+    }
+    
+    // Overlay con título opcional
+    if (title) {
+        const overlay = document.createElement('div');
+        overlay.className = 'gallery-overlay flex items-end';
+        overlay.innerHTML = `<h4 class="text-white font-bold">${title}</h4>`;
+        galleryItem.appendChild(overlay);
+    }
+    
+    return galleryItem;
+}
+
+// Datos de la galería (reemplaza con tus propias URLs)
+const galleryData = {
+    photos: [
+        { src: "https://plus.unsplash.com/premium_photo-1658506711778-d56cdeae1b9b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyJTIwc2hvcHxlbnwwfHwwfHx8MA%3D%3D", title: "Corte clásico" },
+        { src: "https://www.elivelimen.com/blog/wp-content/uploads/2020/03/muselines-eliveli-men-peluqueria-barberia-donostia-068-1024x683.jpg", title: "Afeitado tradicional" },
+        { src: "https://cuponassets.cuponatic-latam.com/backendCl/uploads/imagenes_descuentos/228906/47c1a180ba331a2539afe8ee64f8a047fab71101.XL2.jpg", title: "Tratamiento de barba" },
+        { src: "https://plus.unsplash.com/premium_photo-1661645788141-8196a45fb483?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyfGVufDB8fDB8fHww", title: "Corte moderno" },
+        { src: "https://i.pinimg.com/736x/f1/05/26/f105261326596f7f264ddfa9712902e4.jpg", title: "Estilo urbano" },
+        { src: "https://barberiahudson.com/wp-content/uploads/2024/07/MOVIL-3.png", title: "Experiencia premium" },
+        { src: "https://sevilla.abc.es/contenidopromocionado/wp-content/uploads/sites/2/2019/07/portada-wp-barbas.jpg", title: "Detalle de barba" },
+        { src: "https://plus.unsplash.com/premium_photo-1677444491957-ab1e8b9a80fd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGJhcmJlciVDMyVBRGF8ZW58MHx8MHx8fDA%3D", title: "Servicio VIP" }
+    ],
+    videos: [
+        { src: "video/clipbiblico.mp4", title: "Proverbs 16:3" },
+        { src: "video/detallesubicacion.mp4", title: "Detalle de ubicación" },
+        { src: "video/presentacion1.mp4", title: "Hola soy..." },
+        { src: "video/presentacion2.mp4", title: "Detalles de la barbería" },
+        { src: "video/presentacion3.mp4", title: "Mas sobre nosotros..." }
+    ]
+};
+
+// Inicializar galería
+document.addEventListener('DOMContentLoaded', function() {
+    const photosGrid = document.getElementById('photos-grid');
+    const videosGrid = document.getElementById('videos-grid');
+    const swiperWrapper = document.querySelector('.gallerySwiper .swiper-wrapper');
+    
+    // Inicializar slides del swiper (fotos destacadas)
+    galleryData.photos.slice(0, 6).forEach(photo => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+        slide.innerHTML = `<img src="${photo.src}" alt="${photo.title}" class="w-full h-full object-cover rounded-lg cursor-pointer" data-gallery="photo" data-src="${photo.src}">`;
+        swiperWrapper.appendChild(slide);
+    });
+    
+    // Inicializar miniaturas de fotos
+    galleryData.photos.forEach(photo => {
+        const photoItem = createGalleryItem(photo.src, false, photo.title);
+        photoItem.setAttribute('data-gallery', 'photo');
+        photoItem.setAttribute('data-src', photo.src);
+        photoItem.classList.add('cursor-pointer');
+        photosGrid.appendChild(photoItem);
+    });
+    
+    // Inicializar grid de videos
+    galleryData.videos.forEach(video => {
+        const videoItem = createGalleryItem(video.src, true, video.title);
+        videoItem.setAttribute('data-gallery', 'video');
+        videoItem.setAttribute('data-src', video.src);
+        videoItem.classList.add('cursor-pointer');
+        videosGrid.appendChild(videoItem);
+    });
+    
+    // Inicializar swiper para la galería
+    const gallerySwiper = new Swiper('.gallerySwiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+        on: {
+            init: function() {
+                revealOnScroll(); // Para activar las animaciones iniciales
+            }
+        }
+    });
+    
+    // Tabs de la galería
+    const photoTab = document.getElementById('photos-tab');
+    const videoTab = document.getElementById('videos-tab');
+    const photosContainer = document.getElementById('photos-container');
+    const videosContainer = document.getElementById('videos-container');
+    
+    photoTab.addEventListener('click', () => {
+        photoTab.classList.add('active');
+        videoTab.classList.remove('active');
+        photosContainer.classList.remove('hidden');
+        videosContainer.classList.add('hidden');
+        setTimeout(() => gallerySwiper.update(), 100);
+    });
+    
+    videoTab.addEventListener('click', () => {
+        videoTab.classList.add('active');
+        photoTab.classList.remove('active');
+        videosContainer.classList.remove('hidden');
+        photosContainer.classList.add('hidden');
+    });
+    
+    // Manejo del lightbox
+    const lightbox = document.getElementById('gallery-lightbox');
+    const lightboxContent = document.getElementById('lightbox-content');
+    const closeLightbox = document.getElementById('close-lightbox');
+    
+    // Abrir lightbox al hacer clic en un elemento de galería
+    document.querySelectorAll('[data-gallery]').forEach(item => {
+        item.addEventListener('click', function() {
+            const type = this.getAttribute('data-gallery');
+            const source = this.getAttribute('data-src');
+            
+            lightboxContent.innerHTML = '';
+            
+            if (type === 'photo') {
+                lightboxContent.innerHTML = `<img src="${source}" class="max-w-full max-h-90vh object-contain">`;
+            } else if (type === 'video') {
+                lightboxContent.innerHTML = `
+                    <video controls autoplay class="max-w-full max-h-90vh">
+                        <source src="${source}" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                `;
+            }
+            
+            // Mostrar lightbox con animación
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('animate__animated', 'animate__fadeIn');
+            lightbox.style.animationDuration = '0.3s';
+            
+            // Pausar todos los videos del grid cuando se abre el lightbox
+            document.querySelectorAll('#videos-grid video').forEach(vid => {
+                vid.pause();
+            });
+        });
+    });
+    
+    // Cerrar lightbox
+    closeLightbox.addEventListener('click', () => {
+        lightbox.classList.add('animate__fadeOut');
+        
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('animate__animated', 'animate__fadeIn', 'animate__fadeOut');
+            
+            // Pausar video en lightbox si existe
+            const lightboxVideo = lightboxContent.querySelector('video');
+            if (lightboxVideo) lightboxVideo.pause();
+        }, 300);
+    });
+    
+    // Cerrar lightbox con ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+            closeLightbox.click();
+        }
+    });
+});
+
+// Añadir CSS personalizado para tabs
+document.head.insertAdjacentHTML('beforeend', `
+<style>
+    .gallery-tab {
+        color: #fff;
+        opacity: 0.7;
+        transition: all 0.3s ease;
+    }
+    
+    .gallery-tab.active {
+        color: var(--color-gold);
+        opacity: 1;
+    }
+    
+    .tab-indicator {
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: var(--color-gold);
+        transition: all 0.3s ease;
+    }
+    
+    .gallery-tab.active .tab-indicator {
+        width: 50%;
+    }
+    
+    /* Animación para contenedores de galería */
+    .gallery-container.hidden {
+    display: none !important; /* Añadir !important para forzar el estado */
+}
+
+.gallery-tab.active .tab-indicator {
+    width: 50%;
+    opacity: 1;
+}
+</style>
+`);
+
+// Script para manejar las pestañas de galería
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Inicializando pestañas de galería');
+    
+    // Elementos de la galería
+    const photoTab = document.getElementById('photos-tab');
+    const videoTab = document.getElementById('videos-tab');
+    const photosContainer = document.getElementById('photos-container');
+    const videosContainer = document.getElementById('videos-container');
+    
+    console.log('Elementos:', {photoTab, videoTab, photosContainer, videosContainer});
+    
+    if (photoTab && videoTab && photosContainer && videosContainer) {
+        // Función para alternar pestañas
+        function toggleTab(activeTab, inactiveTab, showContainer, hideContainer) {
+            // Añadir/quitar clases active
+            activeTab.classList.add('active');
+            inactiveTab.classList.remove('active');
+            
+            // Mostrar/ocultar contenedores
+            showContainer.style.display = 'block';
+            hideContainer.style.display = 'none';
+            
+            console.log(`Cambiando a pestaña: ${activeTab.id}`);
+        }
+        
+        // Listener para pestaña de fotos
+        photoTab.addEventListener('click', function() {
+            toggleTab(photoTab, videoTab, photosContainer, videosContainer);
+        });
+        
+        // Listener para pestaña de videos
+        videoTab.addEventListener('click', function() {
+            toggleTab(videoTab, photoTab, videosContainer, photosContainer);
+            console.log('Contenedor de videos visible:', videosContainer.style.display);
+        });
+    } else {
+        console.error('No se encontraron todos los elementos de pestañas');
+    }
+});
+
+//depuraionnnnnn 
+// Dentro de createGalleryItem, añade esto para videos:
+if (isVideo) {
+    // Crear contenedor de video con controles
+    const video = document.createElement('video');
+    video.className = 'w-full h-full object-cover';
+    video.src = source;
+    video.controls = true;
+    video.preload = 'metadata';
+    
+    // Manejo de errores para depuración
+    video.onerror = function() {
+        console.error(`Error al cargar el video: ${source}`);
+        // Mostrar mensaje de error en el elemento
+        galleryItem.innerHTML = `
+            <div class="flex flex-col items-center justify-center h-full bg-gray-900 p-4 text-center">
+                <i class="fas fa-exclamation-triangle text-gold-500 text-3xl mb-2"></i>
+                <p class="text-white">Error al cargar el video</p>
+                <p class="text-gray-400 text-sm mt-1">${source}</p>
+            </div>
+        `;
+    };
+    
+    video.onloadeddata = function() {
+        console.log(`Video cargado correctamente: ${source}`);
+    };
+    
+    galleryItem.appendChild(video);
+    // Resto del código...
+} 
+
+// Agregar este script al final del archivo, justo antes de cerrar </body>
+
+// 1. Definir funciones utilitarias
+function isVideoFile(filename) {
+    return /\.(mp4|webm|ogg)$/i.test(filename);
+}
+
+// 2. Función para revelar elementos al hacer scroll
+function revealOnScroll() {
+    const elements = document.querySelectorAll('.gallery-item, .reveal, .service-item, .product-card');
+    elements.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+            el.classList.add('in-view');
+            if (el.classList.contains('reveal')) el.classList.add('active');
+        }
+    });
+}
+
+// 3. Inicialización de la galería
+document.addEventListener('DOMContentLoaded', function() {
+    // Referencias a elementos DOM
+    const photoTab = document.getElementById('photos-tab');
+    const videoTab = document.getElementById('videos-tab');
+    const photosContainer = document.getElementById('photos-container');
+    const videosContainer = document.getElementById('videos-container');
+    const photosGrid = document.getElementById('photos-grid');
+    const videosGrid = document.getElementById('videos-grid');
+    
+    console.log('Estado inicial de contenedores:',
+        'photos:', photosContainer?.style.display,
+        'videos:', videosContainer?.style.display);
+    
+    // 4. Agregar videos directamente al DOM (enfoque simplificado)
+    if (videosGrid) {
+        // Array con los videos disponibles
+        const videos = [
+            { src: "./video/clipbiblico.mp4", title: "Tutorial de estilo" }
+            // Añade más videos cuando los tengas
+        ];
+        
+        // Crear elementos para cada video
+        videos.forEach(video => {
+            const videoItem = document.createElement('div');
+            videoItem.className = 'gallery-item rounded-lg overflow-hidden shadow-lg relative';
+            videoItem.innerHTML = `
+                <video controls class="w-full h-56 object-cover bg-black">
+                    <source src="${video.src}" type="video/mp4">
+                    Tu navegador no soporta videos.
+                </video>
+                <div class="absolute top-3 right-3 bg-black bg-opacity-70 rounded-full p-2 z-10">
+                    <i class="fas fa-video text-gold-500"></i>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                    <h3 class="text-white font-bold">${video.title}</h3>
+                </div>
+            `;
+            
+            // Añadir al grid de videos
+            videosGrid.appendChild(videoItem);
+            
+            // Manejar errores de video
+            const videoElement = videoItem.querySelector('video');
+            videoElement.onerror = function() {
+                videoItem.innerHTML = `
+                    <div class="h-56 bg-gray-900 flex items-center justify-center p-4 text-center">
+                        <div>
+                            <i class="fas fa-exclamation-triangle text-gold-500 text-3xl mb-2"></i>
+                            <p class="text-white">Error al cargar el video</p>
+                            <p class="text-gray-400 text-sm">${video.src}</p>
+                        </div>
+                    </div>
+                `;
+                console.error(`Error al cargar el video: ${video.src}`);
+            };
+        });
+    }
+    
+    // 5. Manejo de pestañas
+    if (photoTab && videoTab && photosContainer && videosContainer) {
+        console.log('Elementos de pestañas encontrados');
+        
+        // Asegurar estado inicial correcto
+        photosContainer.style.display = 'block';
+        videosContainer.style.display = 'none';
+        
+        // Función para cambiar pestañas
+        function switchTab(activeTab, inactiveTab, showContainer, hideContainer) {
+            activeTab.classList.add('active');
+            inactiveTab.classList.remove('active');
+            
+            showContainer.style.display = 'block';
+            hideContainer.style.display = 'none';
+            
+            console.log(`Cambio a pestaña: ${activeTab.id}`);
+            revealOnScroll(); // Activar animaciones al cambiar pestaña
+        }
+        
+        // Event listeners para pestañas
+        photoTab.addEventListener('click', function() {
+            switchTab(photoTab, videoTab, photosContainer, videosContainer);
+        });
+        
+        videoTab.addEventListener('click', function() {
+            switchTab(videoTab, photoTab, videosContainer, photosContainer);
+        });
+    } else {
+        console.error('No se encontraron todos los elementos de pestañas');
+    }
+    
+    // 6. Inicializar efectos de scroll
+    revealOnScroll();
+});
+
     </script>
 </body>
 </html>
