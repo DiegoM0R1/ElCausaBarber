@@ -1,0 +1,212 @@
+.video-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.video-wrapper {
+    position: relative;
+    max-width: 450px;
+    max-height: 600px;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-wrapper video {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+/* Contenedor para los controles */
+.video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-wrapper:hover .video-controls {
+    opacity: 1;
+}
+
+/* Estilos del botón de Play/Pause */
+#play-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    z-index: 10;
+}
+
+.video-wrapper:hover #play-button,
+.video-wrapper:focus-within #play-button {
+    opacity: 0.8;
+}
+
+#play-button:hover {
+    background-color: rgba(255, 200, 0, 0.8);
+    opacity: 1;
+}
+
+#play-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilos del botón de Expandir */
+#expand-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0;
+    z-index: 10;
+}
+
+.video-wrapper:hover #expand-button,
+.video-wrapper:focus-within #expand-button {
+    opacity: 0.8;
+}
+
+#expand-button:hover {
+    background-color: rgba(255, 200, 0, 0.8);
+    opacity: 1;
+}
+
+#expand-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Estilos para ocultar/mostrar iconos */
+.play-icon.hidden,
+.paused.hidden {
+    display: none;
+}
+
+/* Overlay expandido */
+#expanded-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+#expanded-overlay.hidden {
+    display: none;
+}
+
+/* Video expandido */
+#expanded-video {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón de cerrar */
+#close-expanded {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#close-expanded:hover {
+    background-color: rgba(255, 200, 0, 0.8);
+}
+
+#close-expanded svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Clases de utilidad */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Animaciones */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .video-wrapper {
+        max-width: 100%;
+    }
+    
+    #play-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    #play-button svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    #expanded-video {
+        max-width: 95%;
+    }
+}

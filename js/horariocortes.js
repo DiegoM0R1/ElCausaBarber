@@ -1,15 +1,15 @@
 
 const servicesData = [
-    { id: 'clasico', name: 'Corte Clásico', description: 'Un estilo atemporal y definido.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-cut', imageUrl: 'https://i.pinimg.com/1200x/ee/de/9e/eede9eecc73040b969fa6f263c98ea8c.jpg' }, // <- Añadir imageUrl
-    { id: 'taper', name: 'Taper Fade', description: 'Desvanecido gradual en sienes y nuca.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-signature', imageUrl: 'img/corte/Taperfade.png', videoUrl: 'video/corte/taperfade.mp4' },
-    { id: 'low', name: 'Low Fade', description: 'Desvanecido bajo para un look sutil.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-level-down-alt', imageUrl: 'https://i.pinimg.com/1200x/b1/d4/1b/b1d41b5c73fd9a2883bb1765157ac072.jpg', videoUrl: 'video/corte/lowfade.mp4' },
-    { id: 'mid', name: 'Mid Fade', description: 'Desvanecido medio, versátil y moderno.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-arrows-alt-h', imageUrl: 'img/corte/midfade.jpg', videoUrl: 'video/corte/midfade.mp4' },
-    { id: 'burst', name: 'Burst Fade', description: 'Desvanecido circular alrededor de la oreja.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-adjust', imageUrl: 'https://i.pinimg.com/736x/b3/46/31/b346314e675c66c006493c4f06bf45c8.jpg', videoUrl: 'video/corte/burtsfade.mp4' },
-    { id: 'diseno', name: 'Corte con Diseño', description: 'Líneas o figuras simples.', priceWeekday: 35, priceWeekend: 55, icon: 'fa-pencil-ruler', imageUrl: 'https://i.pinimg.com/736x/86/48/b9/8648b91efdd493b5be9b8285fcffff26.jpg', videoUrl: 'video/corte/diseño.mp4' },
-    { id: 'corte_barba', name: 'Corte + Barba', description: 'Incluye definición y navaja.', priceWeekday: 40, priceWeekend: 60, icon: 'fa-beard', imageUrl: 'https://i.pinimg.com/1200x/dc/92/a5/dc92a5c18334ecf734767cabe922db06.jpg', videoUrl: 'video/corte/barba.mp4' },
-    { id: 'ninos', name: 'Corte para Niños', description: 'Menores de 12 años.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-child', imageUrl: 'https://i.pinimg.com/736x/1c/d4/54/1cd454d308c685806f1d3607bb48d4f9.jpg', videoUrl: 'video/corte/niñomenor12.mp4' },
-    { id: 'facial', name: 'Limpieza Facial', description: 'Revitaliza y cuida tu piel.', priceWeekday: 30, priceWeekend: 30, icon: 'fa-spa', imageUrl: 'https://i.pinimg.com/736x/3f/78/97/3f7897ac4f9c7fdda8eaa7a923e611b5.jpg' },
-    { id: 'cejas', name: 'Cejas', description: 'Gratis con cualquier servicio.', priceWeekday: 0, priceWeekend: 0, icon: 'fa-eye', imageUrl: 'https://i.pinimg.com/736x/01/9f/30/019f30027c8dc0fc34a5a656a56fc50c.jpg' }
+    { id: 'clasico', name: 'Corte Clásico', description: 'Un estilo atemporal y definido.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-cut'  }, // <- Añadir imageUrl
+    { id: 'taper', name: 'Taper Fade', description: 'Desvanecido gradual en sienes y nuca.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-signature' },
+    { id: 'low', name: 'Low Fade', description: 'Desvanecido bajo para un look sutil.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-level-down-alt'},
+    { id: 'mid', name: 'Mid Fade', description: 'Desvanecido medio, versátil y moderno.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-arrows-alt-h' },
+    { id: 'burst', name: 'Burst Fade', description: 'Desvanecido circular alrededor de la oreja.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-adjust' },
+    { id: 'diseno', name: 'Corte con Diseño', description: 'Líneas o figuras simples.', priceWeekday: 35, priceWeekend: 55, icon: 'fa-pencil-ruler' },
+    { id: 'corte_barba', name: 'Corte + Barba', description: 'Incluye definición y navaja.', priceWeekday: 40, priceWeekend: 60, icon: 'fa-beard' },
+    { id: 'ninos', name: 'Corte para Niños', description: 'Menores de 12 años.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-child'},
+    { id: 'facial', name: 'Limpieza Facial', description: 'Revitaliza y cuida tu piel.', priceWeekday: 30, priceWeekend: 30, icon: 'fa-spa' },
+    { id: 'cejas', name: 'Cejas', description: 'Gratis con cualquier servicio.', priceWeekday: 0, priceWeekend: 0, icon: 'fa-eye' }
 ];
 
     // --- Funciones ---
@@ -77,12 +77,7 @@ const servicesData = [
     
             // Generar el HTML interno de la tarjeta
             card.innerHTML = `
-                <div class="w-full h-48 overflow-hidden relative cursor-pointer service-image-trigger" data-lightbox-src="${service.imageUrl || 'img/servicios/placeholder.jpg'}">
-                     <img src="${service.imageUrl || 'img/servicios/placeholder.jpg'}" alt="${service.name}" class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105">
-                     <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                         <i class="fas fa-expand text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                     </div>
-                </div>
+                
                 <div class="p-5 flex flex-col flex-grow">
                     <div class="flex items-start mb-3">
                         <div class="rounded-full gold-bg p-2 mr-3 text-sm"><i class="fas ${service.icon || 'fa-star'} text-black"></i></div>
@@ -92,7 +87,6 @@ const servicesData = [
                     <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
                         <span class="gold-text font-bold text-lg" id="price-span-${service.id}">${priceString}</span>
                         <div class="flex gap-2">
-                             ${hasVideo ? `<button class="text-xs btn-gold bg-opacity-80 hover:bg-opacity-100 py-1 px-2 rounded service-video-trigger" data-video-src="${service.videoUrl}"><i class="fas fa-play mr-1"></i> Ver Video</button>` : ''}
                              <button class="text-xs btn-gold py-1 px-2 rounded book-service-btn" data-service-id="${service.id}">Reservar</button>
                         </div>
                     </div>

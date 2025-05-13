@@ -5,859 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ElCausaBarber | Barbería Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
-        
-        :root {
-            --color-gold: #D4AF37;
-            --color-gold-hover: #B8860B;
-            --color-black: #0F0F0F;
-            --color-dark-gray: #1A1A1A;
-            --color-light-gray: #333333;
-        }
-        
-        * {
-            scroll-behavior: smooth;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--color-black);
-            color: #fff;
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-        }
-        
-        .gold-text {
-            color: var(--color-gold);
-            text-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
-        }
-        
-        .gold-bg {
-            background-color: var(--color-gold);
-        }
-        
-        .dark-gray-bg {
-            background-color: var(--color-dark-gray);
-        }
-        
-        .light-gray-bg {
-            background-color: var(--color-light-gray);
-        }
-        
-        .nav-link {
-            position: relative;
-            padding: 0.5rem 1rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 50%;
-            background-color: var(--color-gold);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .nav-link:hover {
-            color: var(--color-gold);
-            transform: translateY(-2px);
-        }
-        
-        .nav-link:hover::after {
-            width: 80%;
-            left: 10%;
-        }
-        
-        .btn-gold {
-            background-color: var(--color-gold);
-            color: var(--color-black);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn-gold:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-        
-        .btn-gold:hover {
-            background-color: var(--color-gold-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(212, 175, 55, 0.4);
-        }
-        
-        .btn-gold:hover:before {
-            left: 100%;
-        }
-        
-        .btn-gold:active {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 8px rgba(212, 175, 55, 0.3);
-        }
-        
-        .product-card {
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid transparent;
-            transform-style: preserve-3d;
-            background: linear-gradient(145deg, #0F0F0F, #0A0A0A);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--color-gold);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2);
-        }
-        
-        .product-card img {
-            transition: all 0.5s ease;
-        }
-        
-        .product-card:hover img {
-            transform: scale(1.08);
-        }
-        
-        .service-item {
-            border-left: 3px solid transparent;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            background: linear-gradient(145deg, #1A1A1A, #151515);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .service-item:hover {
-            border-left: 3px solid var(--color-gold);
-            padding-left: 1.5rem;
-            transform: translateX(5px);
-            box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(212, 175, 55, 0.1);
-        }
-        
-        .cart-icon {
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .cart-icon:hover {
-            transform: scale(1.1);
-            color: var(--color-gold);
-        }
-        
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: var(--color-gold);
-            color: var(--color-black);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        
-        .cart-icon:hover .cart-count {
-            transform: scale(1.1);
-        }
-        
-        .swiper {
-            width: 100%;
-            height: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .swiper-slide {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .swiper-slide img {
-            transition: transform 10s ease;
-        }
-        
-        .swiper-slide-active img {
-            transform: scale(1.1);
-        }
-        
-        .swiper-slide-content {
-            z-index: 10;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease 0.3s;
-        }
-        
-        .swiper-slide-active .swiper-slide-content {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .swiper-button-next, .swiper-button-prev {
-            color: var(--color-gold) !important;
-            background: rgba(15, 15, 15, 0.5);
-            width: 50px !important;
-            height: 50px !important;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-            background: rgba(15, 15, 15, 0.8);
-            transform: scale(1.1);
-        }
-        
-        .swiper-button-next:after, .swiper-button-prev:after {
-            font-size: 20px !important;
-        }
-        
-        .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-        }
-        
-        .swiper-pagination-bullet-active {
-            background-color: var(--color-gold) !important;
-            width: 30px;
-            border-radius: 6px;
-        }
-        
-        .appointment-input {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--color-light-gray);
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .appointment-input:focus {
-            border-color: var(--color-gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.1);
-            transform: translateY(-1px);
-        }
-        
-        .cart-item-enter {
-            opacity: 0;
-            transform: translateX(20px);
-        }
-        
-        .cart-item-enter-active {
-            opacity: 1;
-            transform: translateX(0);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .cart-item-exit {
-            opacity: 1;
-        }
-        
-        .cart-item-exit-active {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .section-title {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::before, .section-title::after {
-            content: '';
-            position: absolute;
-            height: 2px;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: all 0.5s ease;
-        }
-        
-        .section-title::before {
-            width: 100px;
-            background-color: var(--color-gold);
-        }
-        
-        .section-title::after {
-            width: 50px;
-            bottom: -15px;
-            background-color: var(--color-gold-hover);
-        }
-        
-        .hover-zoom {
-            overflow: hidden;
-        }
-        
-        .hover-zoom img {
-            transition: transform 0.5s ease;
-        }
-        
-        .hover-zoom:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            transform: translateY(50px);
-            opacity: 0;
-        }
-        
-        .gallery-item.in-view {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .gallery-item img {
-            transition: all 0.5s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            bottom: -60px;
-            left: 0;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            transition: all 0.5s ease;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            bottom: 0;
-        }
-        
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--color-light-gray);
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            background: var(--color-gold);
-            color: var(--color-black);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--color-dark-gray);
-            border-left: 4px solid var(--color-gold);
-            padding: 15px 20px;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transform: translateX(120%);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 1000;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        /* Reveal Animation for Sections */
-        .reveal {
-            position: relative;
-            opacity: 0;
-            transition: all 0.8s ease;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-        }
-        
-        .reveal-left {
-            transform: translateX(-100px);
-        }
-        
-        .reveal-right {
-            transform: translateX(100px);
-        }
-        
-        .reveal-up {
-            transform: translateY(100px);
-        }
-        
-        .reveal.active {
-            transform: translate(0);
-        }
-        
-        /* Advanced Card Effects */
-        .barber-card {
-            position: relative;
-            transform-style: preserve-3d;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        
-        .barber-card:hover {
-            transform: translateY(-20px) rotateX(10deg);
-        }
-        
-        .barber-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(transparent 60%, var(--color-black));
-            z-index: 1;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-        
-        .barber-card:hover::before {
-            opacity: 0.9;
-        }
-        
-        .barber-card .barber-socials {
-            position: absolute;
-            bottom: -40px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            z-index: 2;
-            transition: bottom 0.4s ease;
-        }
-        
-        .barber-card:hover .barber-socials {
-            bottom: 20px;
-        }
-        
-        /* Service Highlighting */
-        .service-highlight {
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .service-highlight::before {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transition: top 0.8s ease;
-            z-index: -1;
-        }
-        
-        .service-highlight:hover::before {
-            top: 100%;
-        }
-        
-        /* Custom Loader */
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--color-dark-gray);
-            border-radius: 50%;
-            border-top-color: var(--color-gold);
-            animation: spin 1s infinite ease-in-out;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* 3D Button Effect */
-        .btn-3d {
-            position: relative;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-        }
-        
-        .btn-3d::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            background: var(--color-gold-hover);
-            transform: translateZ(-10px);
-            border-radius: inherit;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-3d:hover {
-            transform: translateY(-5px) translateZ(20px);
-        }
-        
-        .btn-3d:hover::before {
-            opacity: 1;
-            transform: translateZ(-20px);
-        }
-        
-        /* Glowing Effect */
-        .glow-on-hover {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .glow-on-hover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
-            transition: all 0.6s ease;
-            transform: skewX(-25deg);
-        }
-        
-        .glow-on-hover:hover::after {
-            left: 150%;
-        }
-        
-        /* Custom Image Frame */
-        .custom-frame {
-            position: relative;
-            padding: 10px;
-        }
-        
-        .custom-frame::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 2px solid var(--color-gold);
-            transform: scale(1.1);
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-        
-        .custom-frame:hover::before {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .swiper {
-                height: 350px;
-            }
-            
-            .desktop-menu {
-                display: none;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .reveal-left, .reveal-right {
-                transform: translateX(0) translateY(50px);
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .desktop-menu {
-                display: flex;
-            }
-            
-            .mobile-menu {
-                display: none;
-            }
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-            background: var(--color-black);
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--color-dark-gray);
-            border-radius: 5px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--color-gold), var(--color-gold-hover));
-            border-radius: 5px;
-            border: 2px solid var(--color-dark-gray);
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to bottom, var(--color-gold-hover), var(--color-gold));
-        }
-
-        .elcausa-logo {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(145deg, #1c1c1c, #0f0f0f);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 -2px 5px rgba(255,255,255,0.1), inset 0 2px 5px rgba(0,0,0,0.5);
-            transition: all 0.5s ease;
-        }
-        
-        .elcausa-logo:hover {
-            transform: rotate(10deg) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7), 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-
-        .logo-container {
-            text-align: center;
-            color: var(--color-gold);
-            transform: scale(0.8);
-            margin: -15px;
-            transition: all 0.4s ease;
-        }
-        
-        .elcausa-logo:hover .logo-container {
-            transform: scale(0.85);
-        }
-
-        .logo-text .top-text {
-            display: block;
-            font-size: 6px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-            color: var(--color-gold);
-            transition: all 0.3s ease;
-        }
-        
-        .elcausa-logo:hover .top-text {
-            letter-spacing: 1.5px;
-        }
-
-        .logo-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 20px;
-            line-height: 1;
-            margin: 0;
-            color: var(--color-gold);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .elcausa-logo:hover .logo-text h1 {
-            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
-        }
-
-        .logo-details .established {
-            display: block;
-            font-size: 6px;
-            letter-spacing: 1px;
-            margin-top: 2px;
-            color: var(--color-gold);
-        }
-
-        .logo-icons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        .elcausa-logo:hover .logo-icons {
-            transform: scale(1.1);
-        }
-
-        .mustache-icon {
-            width: 20px;
-            height: 8px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><path d="M10 20 Q25 5, 40 20 Q55 35, 70 20 Q85 5, 90 20" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
-            background-repeat: no-repeat;
-            background-size: contain;
-            margin-right: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .scissors-icon {
-            width: 12px;
-            height: 12px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30 40 L70 60 M30 60 L70 40" stroke="%23FFD700" stroke-width="4" fill="none"/></svg>');
-            background-repeat: no-repeat;
-            background-size: contain;
-            transition: all 0.3s ease;
-        }
-        
-        .elcausa-logo:hover .scissors-icon {
-            transform: rotate(30deg);
-        }
-
-        /* Estilos para las pestañas de la galería */
-.gallery-tab {
-    position: relative;
-    color: #fff;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.gallery-tab.active {
-    color: var(--color-gold);
-    opacity: 1;
-}
-
-.gallery-tab::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--color-gold);
-    transition: all 0.3s ease;
-}
-
-.gallery-tab.active::after {
-    width: 50%;
-}
-
-/* Animación para elementos de galería */
-.gallery-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease;
-}
-
-.gallery-item.in-view {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.gallery-item video {
-    background-color: black;
-    cursor: pointer;
-}
-
-/* Estilo para el lightbox */
-#gallery-lightbox {
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(8px);
-}
-
-#gallery-lightbox.animate__fadeIn {
-    animation-duration: 0.3s;
-}
-
-#gallery-lightbox.animate__fadeOut {
-    animation-duration: 0.3s;
-}
-
-/* Mejorar el botón de cierre */
-#close-lightbox {
-    transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.5);
-}
-
-#close-lightbox:hover {
-    background: var(--color-gold);
-    color: black;
-    transform: rotate(90deg);
-}
-
-.logo-image {
-    width: 100px; /* Ajusta el ancho deseado */
-    height: 95px; /* Asegúrate de que la altura sea igual al ancho */
-    display: block;
-    border-radius: 100%; /* Para un círculo perfecto */
-    object-fit: cover; /* Asegura que la imagen cubra el área */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/videopresentacion.css">
     
-}
-
-/* Estilos para el Indicador Semanal de Precios */
-#weekly-price-indicator .day-item {
-    padding: 0.3rem 0.7rem; /* Ajusta el padding */
-    border-radius: 0.25rem; /* rounded-sm */
-    background-color: var(--color-light-gray); /* Color base */
-    color: #b0b0b0; /* Color de texto base */
-    transition: all 0.3s ease;
-    font-weight: 500; /* font-medium */
-    border: 1px solid transparent; /* Borde base transparente */
-    cursor: default; /* Cursor normal */
-    text-align: center;
-}
-
-/* Estilo para días con precio de fin de semana (Vie, Sab) */
-#weekly-price-indicator .day-item.weekend-price {
-    border-color: var(--color-gold); /* Borde dorado */
-    color: var(--color-gold); /* Texto dorado */
-    background-color: rgba(212, 175, 55, 0.08); /* Fondo con tinte dorado leve */
-}
-
-/* Estilo para el día actual */
-#weekly-price-indicator .day-item.current-day {
-    background-color: var(--color-gold); /* Fondo dorado */
-    color: var(--color-black); /* Texto negro */
-    font-weight: 700; /* font-bold */
-    transform: scale(1.05); /* Ligeramente más grande */
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); /* Sombra dorada */
-    border-color: var(--color-gold);
-}
-
-    </style>
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -1006,43 +160,208 @@
         </div>
     </section>
     
-    <!-- About Section -->
-    <section class="py-16 dark-gray-bg">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <img src="img/about.png" alt="Sobre nosotros" class="rounded-lg shadow-lg" />
+ <section id="about-section" class="py-8 md:py-16 dark-gray-bg reveal fade-in">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="video-container md:w-1/2 mb-4 md:mb-0">
+                <div class="video-wrapper rounded-lg shadow-lg overflow-hidden">
+                    <video id="barber-video" class="w-full h-auto object-cover" loop playsinline preload="metadata" controls>
+                        <source src="video/presentacion1.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                    <button id="play-button" class="focus:outline-none" aria-label="Reproducir video">
+                        <svg class="play-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010.049 9.6l1.876 1.876a12 12 0 01-7.053-3.386A1 1 0 0010.369 8.968l3.197 2.128A1.333 1.333 0 0014 10.5V6a1 1 0 00-1-1H5a1 1 0 00-1 1v15a1 1 0 001 1h8a1 1 0 001-1v-4.5a1.333 1.333 0 00-.434-.696z" />
+                        </svg>
+                        <svg class="paused hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                    <button id="expand-button" class="focus:outline-none" aria-label="Expandir video">
+                        <svg class="expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 16v4m0 0h4m8-4v4m0 0h4m0-16v4m0 0h-4M4 8h16M4 16h16" />
+                        </svg>
+                    </button>
                 </div>
-                <div class="md:w-1/2 md:pl-12">
-                    <h2 class="text-3xl font-bold mb-6">Sobre <span class="gold-text">ElCausaBarber</span></h2>
-                    <p class="mb-4">
-                        En ElCausaBarber nos especializamos en ofrecer servicios de barbería premium con un enfoque en la atención personalizada 
-                        y resultados excepcionales. Con más de 10 años de experiencia, nuestro equipo de barberos expertos está dedicado 
-                        a brindarte el mejor servicio.
+            </div>
+            <div class="md:w-1/2 md:pl-8 content-container">
+                <h2 class="text-2xl font-bold mb-4 playfair-font"><span class="gold-text">Descubre</span> ElCausaBarber</h2>
+                <p class="text-sm md:text-base mb-3">
+                    En ElCausaBarber elevamos el arte de la barbería a un nuevo nivel, combinando técnicas
+                    tradicionales con tendencias contemporáneas. Nuestros maestros barberos, con más de 10 años
+                    de experiencia, transforman cada corte en una obra maestra personalizada que realza tu
+                    imagen y estilo único.
+                </p>
+                <p class="text-sm md:text-base mb-4">
+                    Utilizamos exclusivamente productos premium y herramientas de vanguardia para garantizar
+                    resultados excepcionales en cada visita. Nuestra filosofía es simple: no solo ofrecemos
+                    cortes de cabello, creamos experiencias memorables en un ambiente donde el lujo se
+                    encuentra con la autenticidad.
+                </p>
+                <div class="flex space-x-3 mb-3">
+                    <div class="text-center">
+                        <div class="text-xl font-bold gold-text">10+</div>
+                        <div class="text-xs">Años de excelencia</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-bold gold-text">5000+</div>
+                        <div class="text-xs">Estilos perfeccionados</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl font-bold gold-text">20+</div>
+                        <div class="text-xs">Reconocimientos</div>
+                    </div>
+                </div>
+                <div class="mt-2 p-3 rounded-lg light-gray-bg">
+                    <p class="text-xs md:text-sm">
+                        <strong>Visítanos:</strong> 6539 Rue St-Hubert, Montreal, Quebec H2S 2M5
+                        <br>
+                        Centro Comercial Elegante, Local 45
                     </p>
-                    <p class="mb-6">
-                        Utilizamos productos de alta calidad y técnicas innovadoras para asegurar que cada cliente 
-                        salga con un estilo impecable y satisfecho con su experiencia.
-                    </p>
-                    <div class="flex space-x-4">
-                        <div class="text-center">
-                            <div class="text-2xl font-bold gold-text">10+</div>
-                            <div class="text-sm">Años de experiencia</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="expanded-overlay" class="hidden">
+        <div class="relative w-full max-w-4xl">
+            <video id="expanded-video" controls playsinline>
+                <!-- La fuente del video se establece dinámicamente desde JavaScript -->
+                Tu navegador no soporta videos HTML5.
+            </video>
+            <button id="close-expanded" aria-label="Cerrar video">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
+    
+
+<!-- Services Section
+ MAPA
+-->
+
+<!-- Ubicación Section -->
+<section id="location" class="py-16 bg-black">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Nuestra <span class="gold-text">Ubicación</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Encuéntranos fácilmente en el corazón de Montreal
+            </p>
+        </div>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="rounded-lg overflow-hidden shadow-2xl border-4 border-gold-500">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.6789628566935!2d-73.60614972389101!3d45.53666557107524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc919206fbdb4c3%3A0x20f1bcf9fdbe9b6c!2sEl%20causa%20barbier!5e0!3m2!1sen!2spe!4v1745611347588!5m2!1sen!2spe" 
+                    width="100%" 
+                    height="600" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <h3 class="text-2xl font-bold mb-4">Dirección Exacta</h3>
+                <p class="text-gray-400 text-lg">
+                    El causa barbier, 6539 Rue St-Hubert, Montreal, Quebec H2S 2M5
+                    <br>Centro Comercial Elegante, Local 45
+                </p>
+                <a href="https://maps.google.com/maps?q=El+causa+barbier,+6539+Rue+St-Hubert,+Montreal,+Quebec+H2S+2M5" 
+                   target="_blank" 
+                   class="inline-block btn-gold py-3 px-6 rounded-lg mt-4 hover:scale-105 transition-transform">
+                    Abrir en Google Maps
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <div class="max-w-3xl mx-auto mb-8">
+                <div class="bg-black p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 text-center">Información de Contacto</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Dirección</h4>
+                                <p class="text-gray-400">El causa barbier, 6539 Rue St-Hubert, Montreal, Quebec H2S 2M5, Centro Comercial Elegante, Local 45</p>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold gold-text">5000+</div>
-                            <div class="text-sm">Clientes satisfechos</div>
+                        
+                        <div class="flex items-start">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Teléfono</h4>
+                                <p class="text-gray-400">4382826830</p>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold gold-text">20+</div>
-                            <div class="text-sm">Premios ganados</div>
+                        
+                        <div class="flex items-start">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email</h4>
+                                <p class="text-gray-400">elcausabarber@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="gold-text mr-4">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-2">Horarios</h4>
+                                <ul class="space-y-2">
+                                    <li class="text-gray-400">Lunes: 1:00 PM - 8:00 PM</li>
+                                    <li class="text-gray-400">Martes: 1:00 PM - 5:30 PM</li>
+                                    <li class="text-gray-400">Miércoles: 1:00 PM - 8:00 PM</li>
+                                    <li class="text-gray-400">Jueves: 1:00 PM - 8:00 PM</li>
+                                    <li class="text-gray-400">Viernes: 10:00 AM - 8:00 PM</li>
+                                    <li class="text-gray-400">Sábado: 10:00 AM - 8:00 PM</li>
+                                    <li class="text-gray-400">Domingo: 10:00 AM - 2:00 PM</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <h4 class="font-bold mb-2">Síguenos</h4>
+                        <div class="flex justify-center space-x-6">
+                            <a href="https://www.facebook.com/groups/1335403296960722/user/100055149073552/" class="gold-text hover:text-white transition-colors duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.instagram.com/elcausa.barber/" class="gold-text hover:text-white transition-colors duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://wa.me/14183826830" class="gold-text hover:text-white transition-colors duration-300">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@elcausa.barber?_t=ZM-8rxBGtvyUlD&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAadjgfS80NLtzKolpDUi2ZfFzt4MaP6ils0Z6LYmASQwfRyvF35YcT2yrhd1sw_aem_DFkMemPwCZrfn_t0M-BJ8Q" class="gold-text hover:text-white transition-colors duration-300">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    
+    </div>
+</section>
+
+
+
+
+
     <section id="services" class="py-16 bg-black">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
@@ -1211,7 +530,7 @@
                 
                 <!-- Product 8 -->
                 <div class="product-card bg-black p-4 rounded-lg">
-                    <img src="https://ibsimportadora.pe/wp-content/uploads/2023/09/POLVO-TEXTURIZADOR-MARMARA-BARBER.jpg" alt="Spray texturizador" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <img src="https://i.pinimg.com/736x/74/31/cd/7431cd0ac3a52485a99a9193f980a50f.jpg" alt="Spray texturizador" class="w-full h-48 object-cover rounded-lg mb-4" />
                     <h3 class="text-lg font-bold mb-2">Spray Texturizador</h3>
                     <p class="text-gray-400 text-sm mb-4">
                         Da volumen y textura a tu cabello con este spray de acabado mate.
@@ -1222,7 +541,7 @@
                                 data-id="8"
                                 data-name="Spray Texturizador"
                                 data-price="19.75"
-                                data-image="https://ibsimportadora.pe/wp-content/uploads/2023/09/POLVO-TEXTURIZADOR-MARMARA-BARBER.jpg">
+                                data-image="https://i.pinimg.com/736x/74/31/cd/7431cd0ac3a52485a99a9193f980a50f.jpg">
                             Añadir al carrito
                         </button>
                     </div>
@@ -1347,10 +666,7 @@
                     <label for="phone" class="block mb-2 text-sm">Teléfono</label>
                     <input type="tel" id="phone" name="phone" class="w-full appointment-input p-3 rounded-lg" required>
                 </div>
-                 <div>
-                    <label for="email" class="block mb-2 text-sm">Email</label>
-                    <input type="email" id="email" name="email" class="w-full appointment-input p-3 rounded-lg" required>
-                </div>
+                 
                 <div>
                     <label for="date" class="block mb-2 text-sm">Fecha</label>
                     <input type="date" id="date" name="date" class="w-full appointment-input p-3 rounded-lg" required>
@@ -1420,166 +736,8 @@
 
 
     
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 dark-gray-bg">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold">Contacta con <span class="gold-text">Nosotros</span></h2>
-                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-                <p class="mt-4 max-w-2xl mx-auto">
-                    ¿Tienes alguna pregunta? No dudes en ponerte en contacto con nosotros.
-                </p>
-            </div>
-            
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <div class="bg-black p-6 rounded-lg h-full">
-                        <h3 class="text-xl font-bold mb-4">Información de Contacto</h3>
-                        
-                        <div class="flex items-start mb-4">
-                            <div class="gold-text mr-4">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Dirección</h4>
-                                <p class="text-gray-400">El causa barbier, 6539 Rue St-Hubert, Montreal, Quebec H2S 2M5, Centro Comercial Elegante, Local 45</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start mb-4">
-                            <div class="gold-text mr-4">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Teléfono</h4>
-                                <p class="text-gray-400">4382826830</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start mb-4">
-                            <div class="gold-text mr-4">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Email</h4>
-                                <p class="text-gray-400">elcausabarber@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start mb-4">
-                            <div class="gold-text mr-4">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div>
-                                <!-- Opening Hours Section -->
 
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold">Nuestros <span class="gold-text">Horarios</span></h2>
-            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-        </div>
-                    <ul class="space-y-2">
-                        <li class="text-gray-400">Lunes: 1:00 PM - 8:00 PM</li>
-                        <li class="text-gray-400">Martes: 1:00 PM - 5:30 PM</li>
-                        <li class="text-gray-400">Miércoles: 1:00 PM - 8:00 PM</li>
-                        <li class="text-gray-400">Jueves: 1:00 PM - 8:00 PM</li>
-                        <li class="text-gray-400">Viernes: 10:00 AM - 8:00 PM</li>
-                        <li class="text-gray-400">Sábado: 10:00 AM - 8:00 PM</li>
-                        <li class="text-gray-400">Domingo: 10:00 AM - 2:00 PM</li>
-                    </ul>
-           
-
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6">
-                            <h4 class="font-bold mb-2">Síguenos</h4>
-                            <div class="flex space-x-4">
-                                <a href="https://www.facebook.com/groups/1335403296960722/user/100055149073552/" class="gold-text hover:text-white transition-colors duration-300">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="https://www.instagram.com/elcausa.barber/" class="gold-text hover:text-white transition-colors duration-300">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="https://wa.me/14183826830" class="gold-text hover:text-white transition-colors duration-300">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
-                                <a href="https://www.tiktok.com/@elcausa.barber?_t=ZM-8rxBGtvyUlD&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAadjgfS80NLtzKolpDUi2ZfFzt4MaP6ils0Z6LYmASQwfRyvF35YcT2yrhd1sw_aem_DFkMemPwCZrfn_t0M-BJ8Q" class="gold-text hover:text-white transition-colors duration-300">
-                                    <i class="fab fa-tiktok"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="md:w-1/2 md:pl-8">
-                    <form id="contact-form" class="bg-black p-6 rounded-lg">
-                        <div class="mb-4">
-                            <label for="contact-name" class="block mb-2 text-sm">Nombre</label>
-                            <input type="text" id="contact-name" name="name" class="w-full appointment-input p-3 rounded-lg" required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="contact-email" class="block mb-2 text-sm">Email</label>
-                            <input type="email" id="contact-email" name="email" class="w-full appointment-input p-3 rounded-lg" required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="contact-subject" class="block mb-2 text-sm">Asunto</label>
-                            <input type="text" id="contact-subject" name="subject" class="w-full appointment-input p-3 rounded-lg" required>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="contact-message" class="block mb-2 text-sm">Mensaje</label>
-                            <textarea id="contact-message" name="message" rows="5" class="w-full appointment-input p-3 rounded-lg" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="w-full btn-gold py-3 px-4 rounded-lg font-bold">
-                            Enviar Mensaje
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Ubicación Section -->
-<section id="location" class="py-16 bg-black">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold">Nuestra <span class="gold-text">Ubicación</span></h2>
-            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-            <p class="mt-4 max-w-2xl mx-auto">
-                Encuéntranos fácilmente en el corazón de Montreal
-            </p>
-        </div>
-        
-        <div class="max-w-6xl mx-auto">
-            <div class="rounded-lg overflow-hidden shadow-2xl border-4 border-gold-500">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2794.6789628566935!2d-73.60614972389101!3d45.53666557107524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc919206fbdb4c3%3A0x20f1bcf9fdbe9b6c!2sEl%20causa%20barbier!5e0!3m2!1sen!2spe!4v1745611347588!5m2!1sen!2spe" 
-                    width="100%" 
-                    height="600" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-            
-            <div class="mt-8 text-center">
-                <h3 class="text-2xl font-bold mb-4">Dirección Exacta</h3>
-                <p class="text-gray-400 text-lg">
-                    El causa barbier, 6539 Rue St-Hubert, Montreal, Quebec H2S 2M5
-                    <br>Centro Comercial Elegante, Local 45
-                </p>
-                <a href="https://maps.google.com/maps?q=El+causa+barbier,+6539+Rue+St-Hubert,+Montreal,+Quebec+H2S+2M5" 
-                   target="_blank" 
-                   class="inline-block btn-gold py-3 px-6 rounded-lg mt-4 hover:scale-105 transition-transform">
-                    Abrir en Google Maps
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+   
     <!-- Footer -->
     <footer class="bg-black py-12">
         <div class="container mx-auto px-4">
@@ -1671,10 +829,11 @@
 </div>
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script>
@@ -2121,46 +1280,17 @@ checkoutBtn.addEventListener('click', () => {
             
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
             const date = document.getElementById('date').value;
             const time = document.getElementById('time').value;
             const service = document.getElementById('service').value;
             const notes = document.getElementById('notes').value;
-            
-            const message = `Hola, me gustaría agendar una cita:\n\nNombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\nFecha: ${date}\nHora: ${time}\nServicio: ${service}\nNotas: ${notes}`;
+            const message = `Hola, me gustaría agendar una cita:\n\nNombre: ${name}\nTeléfono: ${phone}\nFecha: ${date}\nHora: ${time}\nServicio: ${service}\nNotas: ${notes}`;
             
             const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });
         
-        // Contact form functionality
-        const contactForm = document.getElementById('contact-form');
         
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('contact-name').value;
-            const email = document.getElementById('contact-email').value;
-            const subject = document.getElementById('contact-subject').value;
-            const message = document.getElementById('contact-message').value;
-            
-            const whatsappMessage = `Nuevo mensaje de contacto:\n\nNombre: ${name}\nEmail: ${email}\nAsunto: ${subject}\nMensaje: ${message}`;
-            
-            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappUrl, '_blank');
-            
-            // Alternatively, you could submit this to a server endpoint
-            // fetch('your-endpoint', {
-            //     method: 'POST',
-            //     body: JSON.stringify({ name, email, subject, message }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // });
-            
-            contactForm.reset();
-            showNotification('Mensaje enviado con éxito');
-        });
         
         // Service booking function
         function bookService(serviceName, price) {
@@ -2188,9 +1318,8 @@ checkoutBtn.addEventListener('click', () => {
             }, 3000);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-    // Note: This is a placeholder. In a real implementation, 
-    // you would need a backend service to fetch reviews
+ document.addEventListener('DOMContentLoaded', () => {
+    // Reseñas de ejemplo
     const mockReviews = [
         {
             author_name: "Andrea Correa",
@@ -2211,143 +1340,16 @@ checkoutBtn.addEventListener('click', () => {
             profile_photo_url: "https://lh3.googleusercontent.com/a-/ALV-UjXW9DVyb5kG0t13VMs-eieQgU6S8zsxyE7HfmIouChLY5Umruf4wg=w45-h45-p-rp-mo-ba6-br100-"
         }
     ];
-// Agregar al final de tu archivo JavaScript o dentro de tu DOMContentLoaded event listener
 
-// 1. Mejorar la funcionalidad del lightbox para videos
-const lightbox = document.getElementById('gallery-lightbox');
-const lightboxContent = document.getElementById('lightbox-content');
-const closeLightbox = document.getElementById('close-lightbox');
-
-// Función mejorada para cerrar el lightbox
-function closeVideoLightbox() {
-    // Añadir clase de animación de salida
-    lightbox.classList.add('animate__fadeOut');
-    
-    // Detener todos los videos que estén reproduciéndose
-    const activeVideos = lightbox.querySelectorAll('video');
-    activeVideos.forEach(video => {
-        if (!video.paused) {
-            video.pause();
-        }
-    });
-    
-    // Ocultar lightbox después de la animación
-    setTimeout(() => {
-        lightbox.classList.add('hidden');
-        lightbox.classList.remove('flex', 'animate__fadeOut', 'animate__fadeIn');
-        lightboxContent.innerHTML = ''; // Limpiar contenido
-    }, 300);
-}
-
-// Asignar evento de clic al botón de cierre
-if (closeLightbox) {
-    closeLightbox.addEventListener('click', closeVideoLightbox);
-}
-
-// Cerrar lightbox con tecla ESC
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
-        closeVideoLightbox();
-    }
-});
-
-// Cerrar lightbox al hacer clic fuera del contenido
-if (lightbox) {
-    lightbox.addEventListener('click', (e) => {
-        // Si el clic fue directamente en el fondo (no en el contenido)
-        if (e.target === lightbox) {
-            closeVideoLightbox();
-        }
-    });
-}
-
-// 2. Mejorar la reproducción de videos en la galería
-document.querySelectorAll('#videos-grid video').forEach(video => {
-    // Agregar controles básicos
-    video.controls = true;
-    
-    // Evitar que los videos se reproduzcan automáticamente
-    video.autoplay = false;
-    
-    // Precargar solo los metadatos para mejorar el rendimiento
-    video.preload = 'metadata';
-    
-    // Controlar que solo se reproduzca un video a la vez
-    video.addEventListener('play', function() {
-        document.querySelectorAll('#videos-grid video').forEach(otherVideo => {
-            if (otherVideo !== video && !otherVideo.paused) {
-                otherVideo.pause();
-            }
-        });
-    });
-    
-    // Mejorar la interacción al hacer clic
-    const videoContainer = video.closest('.gallery-item');
-    if (videoContainer) {
-        // Añadir un botón de reproducción superpuesto para mejor UX
-        const playButton = document.createElement('div');
-        playButton.className = 'absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 hover:bg-opacity-40 transition-all duration-300';
-        playButton.innerHTML = '<i class="fas fa-play text-white text-4xl"></i>';
-        playButton.style.cursor = 'pointer';
-        
-        // Solo mostrar el botón cuando el video está pausado
-        if (!video.autoplay) {
-            videoContainer.appendChild(playButton);
-        }
-        
-        // Toggle play/pause al hacer clic en el botón
-        playButton.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evitar que se abra el lightbox
-            if (video.paused) {
-                video.play();
-                playButton.style.display = 'none';
-            }
-        });
-        
-        // Mostrar botón cuando el video se pausa
-        video.addEventListener('pause', () => {
-            playButton.style.display = 'flex';
-        });
-        
-        // Ocultar botón cuando el video se reproduce
-        video.addEventListener('play', () => {
-            playButton.style.display = 'none';
-        });
-    }
-});
-
-// 3. Mejorar el comportamiento de clic en videos (evitar abrir lightbox al interactuar con controles)
-document.querySelectorAll('.gallery-item video').forEach(video => {
-    video.addEventListener('click', (e) => {
-        // Permitir que los controles nativos del video funcionen sin abrir el lightbox
-        e.stopPropagation();
-    });
-    
-    // El contenedor sigue abriendo el lightbox
-    const container = video.closest('.gallery-item');
-    container.addEventListener('click', (e) => {
-        // Si el clic fue en los controles del video, no hacer nada
-        if (e.target === video || video.contains(e.target)) {
-            return;
-        }
-        
-        // De lo contrario, abrir en el lightbox
-        lightboxContent.innerHTML = '';
-        
-        const videoClone = document.createElement('video');
-        videoClone.src = video.src;
-        videoClone.className = 'max-w-full max-h-90vh';
-        videoClone.controls = true;
-        videoClone.autoplay = true;
-        
-        lightboxContent.appendChild(videoClone);
-        
-        lightbox.classList.remove('hidden');
-        lightbox.classList.add('flex', 'animate__fadeIn');
-    });
-});
+    // Función para renderizar las reseñas
     function renderReviews(reviews) {
         const reviewsWrapper = document.getElementById('reviews-wrapper');
+        if (!reviewsWrapper) {
+            console.error('El elemento #reviews-wrapper no fue encontrado');
+            return;
+        }
+
+        // Generar HTML para cada reseña
         reviewsWrapper.innerHTML = reviews.map(review => `
             <div class="swiper-slide">
                 <div class="dark-gray-bg p-6 rounded-lg">
@@ -2370,44 +1372,58 @@ document.querySelectorAll('.gallery-item video').forEach(video => {
             </div>
         `).join('');
 
-        // Reinitialize Swiper for the reviews
-        if (window.innerWidth >= 640) {
-            new Swiper('.google-reviews-swiper', {
-                slidesPerView: window.innerWidth >= 1024 ? 3 : 2,
-                spaceBetween: 20,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                loop: true,
-                autoplay: {
-                    delay: 4000,
-                    disableOnInteraction: false,
-                },
-            });
-        } else {
-            new Swiper('.google-reviews-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                loop: true,
-                autoplay: {
-                    delay: 4000,
-                    disableOnInteraction: false,
-                },
-            });
-        }
+        // Inicializar Swiper después de cargar las reseñas
+        initReviewsSwiper();
     }
 
-    // Render mock reviews (replace with actual API call in production)
+    // Función para inicializar el Swiper
+    function initReviewsSwiper() {
+        // Verificar si Swiper ya está definido
+        if (typeof Swiper === 'undefined') {
+            console.error('La biblioteca Swiper no está cargada');
+            return;
+        }
+
+        // Verificar si el contenedor existe
+        const swiperContainer = document.querySelector('.google-reviews-swiper');
+        if (!swiperContainer) {
+            console.error('El contenedor del Swiper no fue encontrado');
+            return;
+        }
+
+        // Configuración responsive del Swiper
+        let slidesPerView = 1;
+        if (window.innerWidth >= 1024) {
+            slidesPerView = 3;
+        } else if (window.innerWidth >= 640) {
+            slidesPerView = 2;
+        }
+
+        // Inicializar Swiper
+        new Swiper('.google-reviews-swiper', {
+            slidesPerView: slidesPerView,
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+        });
+    }
+
+    // Renderizar las reseñas
     renderReviews(mockReviews);
+
+    // Manejar el cambio de tamaño de ventana
+    window.addEventListener('resize', () => {
+        // Reinicializar el Swiper cuando cambia el tamaño de la ventana
+        initReviewsSwiper();
+    });
 });
-
-
-
 // Función para crear un elemento de galería con soporte para videos e imágenes
 function createGalleryItem(source, isVideo = false, title = '') {
     const galleryItem = document.createElement('div');
@@ -2841,9 +1857,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/8.0.7/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollSmoother.min.js"></script>
@@ -2856,5 +1870,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/CustomWiggle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/CustomEase.min.js"></script>
     <script src="js/horariocortes.js" ></script>
+    <script src="js/videosecction.js" ></script>
 </body>
 </html>
