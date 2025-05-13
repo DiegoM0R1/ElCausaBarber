@@ -415,25 +415,241 @@
 
 
     <section id="services" class="py-16 bg-black">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold">Nuestros <span class="gold-text">Servicios</span></h2>
-                <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-                <p class="mt-4 max-w-2xl mx-auto">
-                    Ofrecemos una variedad de servicios premium. Los precios varían según el día de la semana, como se indica a continuación:
-                </p>
-            </div>
-    
-            <div id="weekly-price-indicator" class="flex flex-wrap justify-center gap-2 mb-10 text-sm">
-                <div class="text-center text-gray-400 w-full">Cargando indicador de precios...</div>
-            </div>
-    
-            <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="text-center text-gray-400 col-span-full">Cargando servicios...</div>
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold mb-2">Nuestros <span class="gold-text">Servicios</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Ofrecemos una variedad de servicios premium. Los precios varían según el día de la
+                semana, como se indica a continuación:
+            </p>
+            
+            <!-- Indicador semanal de precios - Se rellena con JS -->
+            <div id="weekly-price-indicator" class="flex justify-center mt-4 mb-8 space-x-2 text-sm">
+                <!-- Se llenará dinámicamente con JavaScript -->
             </div>
         </div>
-    </section>
-    
+
+        <!-- Grid de servicios - Completamente estático -->
+        <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Corte Clásico -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-cut text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Corte Clásico</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Un estilo atemporal y definido.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-clasico">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('clasico');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Taper Fade -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-signature text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Taper Fade</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Desvanecido gradual en sienes y nuca.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-taper">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('taper');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Low Fade -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-level-down-alt text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Low Fade</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Desvanecido bajo para un look sutil.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-low">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('low');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mid Fade -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-arrows-alt-h text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Mid Fade</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Desvanecido medio, versátil y moderno.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-mid">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('mid');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Burst Fade -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-adjust text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Burst Fade</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Desvanecido circular alrededor de la oreja.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-burst">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('burst');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Corte con Diseño -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-pencil-ruler text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Corte con Diseño</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Líneas o figuras simples.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-diseno">$35.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('diseno');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Corte + Barba -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-beard text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Corte + Barba</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Incluye definición y navaja.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-corte_barba">$40.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('corte_barba');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Corte para Niños -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-child text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Corte para Niños</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Menores de 12 años.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-ninos">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('ninos');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Limpieza Facial -->
+            <div class="service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col">
+                <div class="p-5 flex flex-col flex-grow">
+                    <div class="flex items-start mb-3">
+                        <div class="rounded-full gold-bg p-2 mr-3 text-sm">
+                            <i class="fas fa-spa text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold pt-1">Limpieza Facial</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4 flex-grow">Revitaliza y cuida tu piel.</p>
+                    <div class="mt-auto flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-gray-700">
+                        <span class="gold-text font-bold text-lg" id="price-span-facial">$30.00</span>
+                        <div class="flex gap-2">
+                            <button 
+                                class="text-xs btn-gold py-1 px-2 rounded" 
+                                onclick="reservarServicio('facial');"
+                                type="button">
+                                Reservar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
     <!-- Products Section -->
     <section id="products" class="py-16 dark-gray-bg">
         <div class="container mx-auto px-4">
@@ -603,39 +819,6 @@
     </section>
   
 
-<!-- Barbers Team Section -->
-<section id="team" class="py-16 dark-gray-bg">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold">Nuestro <span class="gold-text">Equipo</span></h2>
-            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-            <p class="mt-4 max-w-2xl mx-auto">
-                Conoce a los profesionales detrás de ElCausaBarber.
-            </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Barber 1 -->
-            <div class="barber-card bg-black rounded-lg overflow-hidden shadow-lg">
-                <img src="img/barbero/elcausa.JPG" alt="Barbero" class="w-full h-64 object-cover">
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold mb-2">Diego Neythan</h3>
-                    <p class="text-gray-400 mb-4">Master Barber</p>
-                    <div class="flex justify-center space-x-4">
-                        <a href="https://www.instagram.com/elcausa.barber/" class="text-gold-500 hover:text-white">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.facebook.com/groups/1335403296960722/user/100055149073552/" class="text-gold-500 hover:text-white">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- More barbers can be added similarly -->
-        </div>
-    </div>
-</section>
 
 
     <!-- Gallery Section -->
@@ -836,6 +1019,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="js/servicios.js"></script>
     <script>
 
         // Agregar esto antes de todas las demás funciones
@@ -1429,31 +1613,7 @@ function createGalleryItem(source, isVideo = false, title = '') {
     const galleryItem = document.createElement('div');
     galleryItem.className = 'gallery-item hover-zoom rounded-lg overflow-hidden shadow-lg relative';
     
-    if (isVideo) {
-        // Crear contenedor de video con controles
-        const video = document.createElement('video');
-        video.className = 'w-full h-full object-cover';
-        video.src = source;
-        video.controls = true;
-        video.preload = 'metadata';
-        video.poster = source + '?poster'; // Puedes usar una imagen de poster o generar una
-        
-        // Añadir indicador de video
-        const videoIndicator = document.createElement('div');
-        videoIndicator.className = 'absolute top-3 right-3 bg-black bg-opacity-70 rounded-full p-2 z-10';
-        videoIndicator.innerHTML = '<i class="fas fa-video text-gold-500"></i>';
-        
-        galleryItem.appendChild(video);
-        galleryItem.appendChild(videoIndicator);
-    } else {
-        // Para imágenes
-        const img = document.createElement('img');
-        img.src = source;
-        img.alt = title || 'Galería';
-        img.className = 'w-full h-full object-cover transition-transform duration-500';
-        
-        galleryItem.appendChild(img);
-    }
+    
     
     // Overlay con título opcional
     if (title) {
@@ -1712,38 +1872,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//depuraionnnnnn 
-// Dentro de createGalleryItem, añade esto para videos:
-if (isVideo) {
-    // Crear contenedor de video con controles
-    const video = document.createElement('video');
-    video.className = 'w-full h-full object-cover';
-    video.src = source;
-    video.controls = true;
-    video.preload = 'metadata';
-    
-    // Manejo de errores para depuración
-    video.onerror = function() {
-        console.error(`Error al cargar el video: ${source}`);
-        // Mostrar mensaje de error en el elemento
-        galleryItem.innerHTML = `
-            <div class="flex flex-col items-center justify-center h-full bg-gray-900 p-4 text-center">
-                <i class="fas fa-exclamation-triangle text-gold-500 text-3xl mb-2"></i>
-                <p class="text-white">Error al cargar el video</p>
-                <p class="text-gray-400 text-sm mt-1">${source}</p>
-            </div>
-        `;
-    };
-    
-    video.onloadeddata = function() {
-        console.log(`Video cargado correctamente: ${source}`);
-    };
-    
-    galleryItem.appendChild(video);
-    // Resto del código...
-} 
-
-// Agregar este script al final del archivo, justo antes de cerrar </body>
 
 // 1. Definir funciones utilitarias
 function isVideoFile(filename) {
