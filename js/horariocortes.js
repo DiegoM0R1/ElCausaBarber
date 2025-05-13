@@ -8,8 +8,7 @@ const servicesData = [
     { id: 'diseno', name: 'Corte con Diseño', description: 'Líneas o figuras simples.', priceWeekday: 35, priceWeekend: 55, icon: 'fa-pencil-ruler' },
     { id: 'corte_barba', name: 'Corte + Barba', description: 'Incluye definición y navaja.', priceWeekday: 40, priceWeekend: 60, icon: 'fa-beard' },
     { id: 'ninos', name: 'Corte para Niños', description: 'Menores de 12 años.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-child'},
-    { id: 'facial', name: 'Limpieza Facial', description: 'Revitaliza y cuida tu piel.', priceWeekday: 30, priceWeekend: 30, icon: 'fa-spa' },
-    { id: 'cejas', name: 'Cejas', description: 'Gratis con cualquier servicio.', priceWeekday: 0, priceWeekend: 0, icon: 'fa-eye' }
+    { id: 'facial', name: 'Limpieza Facial', description: 'Revitaliza y cuida tu piel.', priceWeekday: 30, priceWeekend: 30, icon: 'fa-spa' }
 ];
 
     // --- Funciones ---
@@ -270,98 +269,406 @@ const servicesData = [
     }
 
     // --- Punto de Entrada Principal ---
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log("DOM completamente cargado y parseado.");
+   document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM completamente cargado y parseado.");
 
-        // Obtener referencias a los elementos AHORA que el DOM está listo
-        const servicesGridContainer = document.getElementById('services-grid');
-        const weeklyIndicatorContainer = document.getElementById('weekly-price-indicator');
-        const serviceSelectElement = document.getElementById('service');
-        const dateInputElement = document.getElementById('date');
-        const priceDisplayElement = document.getElementById('appointment-price-display');
-        const appointmentFormElement = document.getElementById('appointment-form');
+    // --- 1. Obtener referencias a TODOS los elementos del DOM necesarios ---
+    const servicesGridContainer = document.getElementById('services-grid');
+    const weeklyIndicatorContainer = document.getElementById('weekly-price-indicator');
+    const serviceSelectElement = document.getElementById('service');
+    const dateInputElement = document.getElementById('date');       // <--- Input de Fecha
+    const timeInputElement = document.getElementById('time');       // <--- Input de Hora
+    const priceDisplayElement = document.getElementById('appointment-price-display');
+    const appointmentFormElement = document.getElementById('appointment-form');
+    // Añade aquí otros elementos si los necesitas (lightbox, botones, etc.)
 
-        // Verificar si los elementos existen antes de usarlos
-        if (!servicesGridContainer) console.error("Falta el div #services-grid");
-        if (!weeklyIndicatorContainer) console.error("Falta el div #weekly-price-indicator");
-        if (!serviceSelectElement) console.error("Falta el select #service");
-        if (!dateInputElement) console.error("Falta el input #date");
-        if (!priceDisplayElement) console.error("Falta el span #appointment-price-display");
-        if (!appointmentFormElement) console.error("Falta el form #appointment-form");
+    // --- Verificar si los elementos esenciales existen ---
+    if (!dateInputElement || !timeInputElement || !serviceSelectElement || !priceDisplayElement || !appointmentFormElement) {
+        console.error("Error Crítico: Faltan uno o más elementos esenciales del formulario (date, time, service, price-display, form). Verifica los IDs en tu HTML.");
+        // Puedes detener la ejecución aquí si lo deseas, o manejarlo de otra forma
+        // return;
+    }
 
-        // Ejecutar las funciones de renderizado
-        renderWeeklyIndicator(weeklyIndicatorContainer);
-        renderServiceCards(servicesGridContainer);
-        populateServiceSelect(serviceSelectElement);
+    // --- 2. Definir Datos y Constantes ---
+    const servicesData = [
+        { id: 'clasico', name: 'Corte Clásico', description: 'Un estilo atemporal y definido.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-cut' },
+        { id: 'taper', name: 'Taper Fade', description: 'Desvanecido gradual en sienes y nuca.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-signature' },
+        { id: 'low', name: 'Low Fade', description: 'Desvanecido bajo para un look sutil.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-level-down-alt'},
+        { id: 'mid', name: 'Mid Fade', description: 'Desvanecido medio, versátil y moderno.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-arrows-alt-h' },
+        { id: 'burst', name: 'Burst Fade', description: 'Desvanecido circular alrededor de la oreja.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-adjust' },
+        { id: 'diseno', name: 'Corte con Diseño', description: 'Líneas o figuras simples.', priceWeekday: 35, priceWeekend: 55, icon: 'fa-pencil-ruler' },
+        { id: 'corte_barba', name: 'Corte + Barba', description: 'Incluye definición y navaja.', priceWeekday: 40, priceWeekend: 60, icon: 'fa-beard' },
+        { id: 'ninos', name: 'Corte para Niños', description: 'Menores de 12 años.', priceWeekday: 30, priceWeekend: 50, icon: 'fa-child'},
+        { id: 'facial', name: 'Limpieza Facial', description: 'Revitaliza y cuida tu piel.', priceWeekday: 30, priceWeekend: 30, icon: 'fa-spa' }
+        // { id: 'cejas', name: 'Cejas', description: 'Gratis con cualquier servicio.', priceWeekday: 0, priceWeekend: 0, icon: 'fa-eye' } // Descomenta si usas cejas
+    ];
 
-        // Configurar fecha mínima y listeners del formulario de reserva
-        if (dateInputElement) {
-            const today = new Date().toISOString().split('T')[0];
-            dateInputElement.setAttribute('min', today);
-            dateInputElement.addEventListener('change', () => updateAppointmentPrice(serviceSelectElement, dateInputElement, priceDisplayElement));
-            // Si ya hay una fecha (p.ej. por autocompletar), actualizar precio
-            if(dateInputElement.value) {
-                 updateAppointmentPrice(serviceSelectElement, dateInputElement, priceDisplayElement);
-            }
+    const operatingHours = {
+        0: { open: '10:00', close: '14:00' }, // Domingo
+        1: { open: '13:00', close: '20:00' }, // Lunes
+        2: { open: '13:00', close: '17:30' }, // Martes
+        3: { open: '13:00', close: '20:00' }, // Miércoles
+        4: { open: '13:00', close: '20:00' }, // Jueves
+        5: { open: '10:00', close: '20:00' }, // Viernes
+        6: { open: '10:00', close: '20:00' }  // Sábado
+    };
+
+    // --- 3. Definir Funciones Auxiliares ---
+
+    function getPriceForDay(service, dayOfWeek) {
+        // ... (tu código actual) ...
+        if (!service) return 0;
+        if (dayOfWeek === 5 || dayOfWeek === 6) { return service.priceWeekend; }
+        else { return service.priceWeekday; }
+    }
+
+    function formatPrice(price) {
+         // ... (tu código actual) ...
+        if (price === 0 && price !== undefined) return 'Gratis*'; // Asegurar que no sea undefined
+        if (typeof price === 'number') return `$${price.toFixed(2)}`;
+        return 'N/A'; // O '$0.00' si prefieres
+    }
+
+    function renderWeeklyIndicator(container) {
+        // ... (tu código actual, verifica que 'container' no sea null) ...
+        if (!container) { console.error("Contenedor del indicador semanal no encontrado."); return; }
+        container.innerHTML = ''; // Limpiar
+        const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        const todayIndex = new Date().getDay();
+        dayNames.forEach((name, index) => { /* ... crear y añadir dayElement ... */
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('day-item');
+            dayElement.textContent = name;
+            if (index === 5 || index === 6) { dayElement.classList.add('weekend-price'); dayElement.title = 'Precio de fin de semana'; }
+            else { dayElement.title = 'Precio regular'; }
+            if (index === todayIndex) { dayElement.classList.add('current-day'); dayElement.title += ' (Hoy)'; }
+            container.appendChild(dayElement);
+         });
+        console.log("Indicador semanal renderizado.");
+    }
+
+    function renderServiceCards(gridContainer) {
+        // ... (tu código actual, verifica que 'gridContainer' no sea null) ...
+         if (!gridContainer) { console.error("Contenedor #services-grid no encontrado."); return; }
+         gridContainer.innerHTML = ''; // Limpiar
+         const currentDay = new Date().getDay();
+         servicesData.forEach(service => { /* ... crear y añadir card ... */
+             const currentPrice = getPriceForDay(service, currentDay);
+             const priceString = formatPrice(currentPrice);
+             const card = document.createElement('div');
+             card.className = 'service-item dark-gray-bg rounded-lg overflow-hidden shadow-lg flex flex-col group';
+             card.innerHTML = `... tu HTML para la tarjeta ... usa ${priceString} ...`; // Asegúrate que el HTML interno esté correcto
+              // Añadir listener al botón reservar DENTRO del bucle
+             const reserveButton = card.querySelector('.book-service-btn');
+             if (reserveButton) {
+                 reserveButton.addEventListener('click', function() {
+                     const serviceId = this.getAttribute('data-service-id');
+                     console.log(`==> Clic en Reservar (loop) para servicio ID: ${serviceId}`);
+                     if (typeof bookService === 'function') {
+                        bookService(serviceId);
+                     } else {
+                        console.error("Función bookService no definida.");
+                     }
+                 });
+             } else {
+                 console.warn("Botón .book-service-btn no encontrado en la tarjeta para", service.name);
+             }
+             gridContainer.appendChild(card);
+         });
+        console.log("Tarjetas de servicio renderizadas.");
+    }
+
+    function populateServiceSelect(selectElement) {
+        // ... (tu código actual, verifica que 'selectElement' no sea null) ...
+         if (!selectElement) { console.error("Elemento select de servicios no encontrado."); return; }
+         const placeholderOption = selectElement.querySelector('option[value=""]');
+         selectElement.innerHTML = '';
+         if (placeholderOption) { selectElement.appendChild(placeholderOption); }
+         servicesData.forEach(service => { /* ... crear y añadir option ... */
+            const option = document.createElement('option');
+            option.value = service.id;
+            option.textContent = service.name + (service.id === 'cejas' ? ' (Gratis con servicio)' : '');
+            selectElement.appendChild(option);
+          });
+         console.log("Select de servicios poblado.");
+    }
+
+    // Función para actualizar el precio estimado (usa las variables globales del DOM)
+    function updateAppointmentPriceDisplay() {
+        console.log("--- updateAppointmentPriceDisplay INICIADO ---");
+        if (!serviceSelectElement || !dateInputElement || !priceDisplayElement) {
+            console.error("Faltan elementos para actualizar precio.");
+            if(priceDisplayElement) priceDisplayElement.textContent = "Error";
+            return;
+        }
+        const selectedServiceId = serviceSelectElement.value;
+        const selectedDateStr = dateInputElement.value;
+
+        if (!selectedServiceId || !selectedDateStr) {
+            priceDisplayElement.textContent = '$0.00';
+            console.log("Saliendo de updateAppointmentPriceDisplay: Falta servicio o fecha.");
+            return;
+        }
+        const service = servicesData.find(s => s.id === selectedServiceId);
+        if (!service) {
+             priceDisplayElement.textContent = 'N/A';
+             console.error(`Servicio ID '${selectedServiceId}' no encontrado.`);
+             return;
+        }
+        try {
+            const selectedDate = new Date(selectedDateStr + 'T00:00:00');
+             if (isNaN(selectedDate.getTime())) { priceDisplayElement.textContent = "Fecha Inválida"; return; }
+            const dayOfWeek = selectedDate.getDay();
+            const price = getPriceForDay(service, dayOfWeek);
+            const formattedPrice = formatPrice(price);
+            priceDisplayElement.textContent = formattedPrice;
+            console.log(`Precio estimado actualizado a: ${formattedPrice}`);
+        } catch (error) {
+            console.error("Error al actualizar precio:", error);
+            priceDisplayElement.textContent = "Error";
+        }
+        console.log("--- updateAppointmentPriceDisplay FINALIZADO ---");
+    }
+
+    // Función para actualizar las horas disponibles (usa las variables globales del DOM)
+    // ... (otras variables como dateInputElement, timeInputElement, operatingHours ya definidas) ...
+const timeValidationMessageElement = document.getElementById('time-validation-message'); // Obtén el nuevo elemento
+
+function updateAvailableTimes() {
+    console.log("--- updateAvailableTimes ejecutada ---");
+    if (!dateInputElement || !timeInputElement || !timeValidationMessageElement) { // Incluir el nuevo elemento en la verificación
+        console.error("Inputs de fecha/hora o elemento de mensaje de validación no encontrado.");
+        return;
+    }
+
+    // Limpiar mensaje previo
+    timeValidationMessageElement.textContent = '';
+    const selectedDateStr = dateInputElement.value;
+
+    if (!selectedDateStr) {
+        timeInputElement.min = '';
+        timeInputElement.max = '';
+        timeInputElement.disabled = true;
+        timeInputElement.value = '';
+        timeValidationMessageElement.textContent = "Por favor, selecciona una fecha primero."; // Mensaje si no hay fecha
+        console.log("Fecha no seleccionada. Input de hora deshabilitado.");
+        return;
+    }
+
+    try {
+        const selectedDate = new Date(selectedDateStr + 'T00:00:00');
+        if (isNaN(selectedDate.getTime())) {
+            timeValidationMessageElement.textContent = "La fecha seleccionada es inválida.";
+            // ... (resto del código para deshabilitar timeInput) ...
+            return;
         }
 
-        if (serviceSelectElement) {
-            serviceSelectElement.addEventListener('change', () => updateAppointmentPrice(serviceSelectElement, dateInputElement, priceDisplayElement));
-             // Si ya hay un servicio seleccionado (p.ej. por caché del navegador), actualizar precio
-             if(serviceSelectElement.value) {
-                 updateAppointmentPrice(serviceSelectElement, dateInputElement, priceDisplayElement);
-            }
-        }
+        const dayOfWeek = selectedDate.getDay();
+        const hours = operatingHours[dayOfWeek]; // operatingHours debe estar definido
 
-        // Listener del formulario de reserva
-        if (appointmentFormElement) {
-            appointmentFormElement.addEventListener('submit', (e) => {
-                e.preventDefault();
-                console.log("Formulario de reserva enviado.");
+        if (hours) {
+            timeInputElement.min = hours.open;
+            timeInputElement.max = hours.close;
+            timeInputElement.disabled = false;
+            timeInputElement.step = "1800"; // 30 minutos
 
-                const name = document.getElementById('name')?.value || ''; // Añadir '?' por seguridad
-                const phone = document.getElementById('phone')?.value || '';
-                const email = document.getElementById('email')?.value || '';
-                const dateValue = dateInputElement?.value || '';
-                const time = document.getElementById('time')?.value || '';
-                const serviceId = serviceSelectElement?.value || '';
-                const notes = document.getElementById('notes')?.value || '';
+            console.log(`Atributos aplicados a #time: min="${timeInputElement.min}" max="${timeInputElement.max}"`);
 
-                if (!dateValue || !serviceId) {
-                    console.error("Falta fecha o servicio seleccionado.");
-                    // Podrías mostrar una notificación al usuario aquí
-                    return;
+            // Comprobar si la hora actual es válida y mostrar mensaje si es necesario
+            const currentTimeValue = timeInputElement.value;
+            if (currentTimeValue) {
+                if (currentTimeValue < hours.open || currentTimeValue > hours.close) {
+                    timeValidationMessageElement.textContent = `Hora inválida. Para esta fecha atendemos de ${formatTime(hours.open)} a ${formatTime(hours.close)}.`;
+                    // No limpies el valor aquí necesariamente, el navegador ya lo valida.
+                    // Podrías añadir una clase de error al input si quieres.
+                    // timeInputElement.classList.add('border-red-500');
+                } else {
+                    // timeInputElement.classList.remove('border-red-500');
+                    timeValidationMessageElement.textContent = ''; // Hora válida, sin mensaje
                 }
+            } else {
+                 // Si no hay hora seleccionada aún, puedes poner un mensaje general
+                 timeValidationMessageElement.textContent = `Horario disponible: ${formatTime(hours.open)} - ${formatTime(hours.close)}.`;
+            }
 
-                const service = servicesData.find(s => s.id === serviceId);
-                const serviceName = service ? service.name : 'Servicio Desconocido';
-
-                const selectedDate = new Date(dateValue + 'T00:00:00');
-                const dayOfWeek = selectedDate.getDay();
-                const finalPrice = service ? getPriceForDay(service, dayOfWeek) : 0;
-                const priceText = formatPrice(finalPrice);
-
-                const message = `Hola, me gustaría agendar una cita:\n\n` +
-                                `Nombre: ${name}\n` +
-                                `Teléfono: ${phone}\n` +
-                                `Email: ${email}\n` +
-                                `Fecha: ${dateValue}\n` +
-                                `Hora: ${time}\n` +
-                                `Servicio: ${serviceName}\n` +
-                                `Precio Estimado: ${priceText}\n` +
-                                `Notas: ${notes || 'Ninguna'}`;
-
-                const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`; // Reemplaza con tu número
-                console.log("Abriendo WhatsApp con URL:", whatsappUrl);
-                window.open(whatsappUrl, '_blank');
-            });
         } else {
-            console.error("No se pudo añadir el listener al formulario de reserva.");
+            timeValidationMessageElement.textContent = "No laboramos en la fecha seleccionada.";
+            timeInputElement.min = '';
+            timeInputElement.max = '';
+            timeInputElement.disabled = true;
+            timeInputElement.value = '';
+            console.warn(`No se encontraron horarios para el día ${dayOfWeek}.`);
         }
-         // Inicializar otras funcionalidades si existen
-         // Por ejemplo, inicializar GSAP, carrito, etc. que estaban en el DOMContentLoaded original
+    } catch (error) {
+        console.error("Error dentro de updateAvailableTimes:", error);
+        timeValidationMessageElement.textContent = "Error al determinar el horario.";
+        // ... (código para deshabilitar timeInput) ...
+    }
+    console.log("--- updateAvailableTimes finalizada ---");
+}
 
+// Función auxiliar para formatear la hora (opcional, para mensajes más amigables)
+function formatTime(timeStr) { // timeStr es HH:MM
+    if (!timeStr) return '';
+    const [hour, minute] = timeStr.split(':');
+    const h = parseInt(hour);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const formattedHour = h % 12 === 0 ? 12 : h % 12;
+    return `${formattedHour}:${minute} ${ampm}`;
+}
+
+
+// --- Modifica también el listener del input de hora (si ya tienes uno, si no, añádelo) ---
+//     para que actualice el mensaje de validación cuando el usuario cambie la hora.
+
+if (timeInputElement) {
+    timeInputElement.addEventListener('input', () => { // 'input' se dispara al cambiar el valor
+        // Volver a llamar a updateAvailableTimes es una forma de revalidar
+        // o crear una función más específica para solo actualizar el mensaje de validación
+        // basado en el min/max ya establecidos.
+
+        // Opción simple: re-ejecutar la lógica de mensajes de updateAvailableTimes
+        // (o una sub-función de ella)
+        const selectedDateStr = dateInputElement.value;
+        if (selectedDateStr && operatingHours) { // Asegurarse que hay fecha y horarios
+            const selectedDate = new Date(selectedDateStr + 'T00:00:00');
+             if (!isNaN(selectedDate.getTime())) {
+                const dayOfWeek = selectedDate.getDay();
+                const hours = operatingHours[dayOfWeek];
+                const currentTimeValue = timeInputElement.value;
+
+                if (hours && currentTimeValue) {
+                     if (currentTimeValue < hours.open || currentTimeValue > hours.close) {
+                        timeValidationMessageElement.textContent = `Hora inválida. Atendemos de ${formatTime(hours.open)} a ${formatTime(hours.close)}.`;
+                        // timeInputElement.classList.add('border-red-500');
+                     } else {
+                        timeValidationMessageElement.textContent = ''; // Hora válida
+                        // timeInputElement.classList.remove('border-red-500');
+                     }
+                } else if (hours && !currentTimeValue) { // Si se borra la hora
+                    timeValidationMessageElement.textContent = `Horario disponible: ${formatTime(hours.open)} - ${formatTime(hours.close)}.`;
+                }
+             }
+        }
     });
+}
+    // Función global para reservar desde tarjeta (usa las variables globales del DOM)
+    function bookService(serviceId) {
+        console.log(`--- bookService INICIADO --- ID: ${serviceId}`);
+         if (!serviceSelectElement || !appointmentSection) { console.error("Faltan elementos para bookService"); return; }
+         try {
+             serviceSelectElement.value = serviceId;
+             if (serviceSelectElement.value !== serviceId) { console.warn(`No se pudo seleccionar servicio ${serviceId}`); }
+             // Disparar change para actualizar precio Y hora
+             const changeEvent = new Event('change', { bubbles: true });
+             serviceSelectElement.dispatchEvent(changeEvent); // Actualiza precio
+             if(dateInputElement) dateInputElement.dispatchEvent(changeEvent); // Actualiza hora si hay fecha
+             console.log("Evento change disparado en select y date (si existe)");
+         } catch (error) { console.error("Error al seleccionar servicio:", error); }
+         // Scroll
+         setTimeout(() => {
+             try {
+                 const offsetTop = appointmentSection.offsetTop - 80;
+                 window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                 console.log("Scroll ejecutado.");
+             } catch (scrollError) { console.error("Error en scroll:", scrollError); }
+         }, 50);
+        console.log(`--- bookService FINALIZADO ---`);
+    }
+
+
+    // --- 4. Ejecutar Funciones de Inicialización ---
+    if (weeklyIndicatorContainer) renderWeeklyIndicator(weeklyIndicatorContainer);
+    if (servicesGridContainer) renderServiceCards(servicesGridContainer);
+    if (serviceSelectElement) populateServiceSelect(serviceSelectElement);
+
+
+    // --- 5. Añadir Listeners ---
+
+    // Listener para cambios en Fecha (actualiza precio Y hora)
+    if (dateInputElement) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInputElement.setAttribute('min', today);
+        dateInputElement.addEventListener('change', () => {
+            updateAppointmentPriceDisplay(); // Actualizar precio
+            updateAvailableTimes();        // Actualizar hora
+        });
+        // Llamada inicial para establecer estado correcto de la hora y precio si hay fecha
+        if (dateInputElement.value) {
+             updateAppointmentPriceDisplay();
+             updateAvailableTimes();
+        } else {
+             updateAvailableTimes(); // Asegura que la hora esté deshabilitada si no hay fecha inicial
+        }
+    } else {
+         console.error("Listener no añadido: #date no encontrado.");
+    }
+
+    // Listener para cambios en Servicio (solo actualiza precio)
+    if (serviceSelectElement) {
+        serviceSelectElement.addEventListener('change', updateAppointmentPriceDisplay);
+        // Llamada inicial si hay servicio seleccionado
+         if (serviceSelectElement.value && dateInputElement && dateInputElement.value) {
+             updateAppointmentPriceDisplay();
+         }
+    } else {
+         console.error("Listener no añadido: #service no encontrado.");
+    }
+
+    // Listener para envío del formulario
+    if (appointmentFormElement) {
+        appointmentFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log("Formulario de reserva enviado.");
+            // Reúne los datos del formulario (asegúrate de que los IDs name, phone, email, notes existan)
+            const name = document.getElementById('name')?.value || '';
+            const phone = document.getElementById('phone')?.value || '';
+            const email = document.getElementById('email')?.value || ''; // ¿Tienes campo email?
+            const dateValue = dateInputElement?.value || '';
+            const timeValue = timeInputElement?.value || ''; // Usar timeInputElement
+            const serviceId = serviceSelectElement?.value || '';
+            const notes = document.getElementById('notes')?.value || '';
+
+             if (!dateValue || !serviceId || !timeValue) { // Añadir validación de hora
+                 console.error("Falta fecha, servicio u hora seleccionados.");
+                 alert("Por favor, selecciona fecha, hora y servicio."); // Feedback al usuario
+                 return;
+             }
+
+            const service = servicesData.find(s => s.id === serviceId);
+            const serviceName = service ? service.name : 'Servicio Desconocido';
+            const finalPriceText = priceDisplayElement ? priceDisplayElement.textContent : 'N/A'; // Usar el precio ya mostrado
+
+            const message = `Hola, me gustaría agendar una cita:\n\n` +
+                          `Nombre: ${name}\n` +
+                          `Teléfono: ${phone}\n` +
+                          (email ? `Email: ${email}\n` : '') + // Incluir email solo si existe
+                          `Fecha: ${dateValue}\n` +
+                          `Hora: ${timeValue}\n` +
+                          `Servicio: ${serviceName}\n` +
+                          `Precio Estimado: ${finalPriceText}\n` +
+                          `Notas: ${notes || 'Ninguna'}`;
+
+            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`; // Reemplaza con TU número
+            console.log("Abriendo WhatsApp con URL:", whatsappUrl);
+            window.open(whatsappUrl, '_blank');
+            // Considera si quieres resetear el formulario después de enviar a WhatsApp
+            // appointmentFormElement.reset();
+            // updateAvailableTimes(); // Resetea el estado de la hora
+            // updateAppointmentPriceDisplay(); // Resetea el precio
+        });
+    } else {
+         console.error("Listener no añadido: #appointment-form no encontrado.");
+    }
+
+    // Inicializar otros componentes (Lightbox, etc.) si es necesario
+    // ... tu código para el lightbox ...
+
+}); // --- FIN DEL DOMContentLoaded ---
+
+
+
+
 // --- Lógica del Lightbox (Revisada para Depuración) ---
 const lightbox = document.getElementById('gallery-lightbox');
 const lightboxContent = document.getElementById('lightbox-content');
