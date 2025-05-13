@@ -159,14 +159,131 @@ function updateAppointmentPrice() {
 }
 
 // Función para actualizar horas disponibles
-function updateAvailableTimes() {
+// Solución simplificada: Añadir selector AM/PM al input de hora existente
+
+// Función para inicializar el selector AM/PM
+function initAmPmSelector() {
+    console.log("Inicializando selector AM/PM simple");
+    
+    // Buscar el input de hora existente
+    const timeInput = document.getElementById('time');
+    if (!timeInput) {
+        console.error("No se encontró el input de hora (#time)");
+        return;
+    }
+    
+    // 1. Crear el selector AM/PM
+    const periodSelect = document.createElement('select');
+    periodSelect.id = 'time-period';
+    periodSelect.className = 'bg-black border border-gray-700 rounded p-2 ml-2 w-20';
+    
+    // Añadir opciones AM/PM
+    const amOption = document.createElement('option');
+    amOption.value = 'AM';
+    amOption.textContent = 'AM';
+    
+    const pmOption = document.createElement('option');
+    pmOption.value = 'PM';
+    pmOption.textContent = 'PM';
+    
+    periodSelect.appendChild(amOption);
+    periodSelect.appendChild(pmOption);
+    
+    // 2. Insertar el selector después del input de hora
+    if (timeInput.parentNode) {
+        // Crear un contenedor que agrupe el input y el selector
+        const container = document.createElement('div');
+        container.className = 'flex items-center';
+        
+        // Reemplazar el input original con el contenedor
+        timeInput.parentNode.insertBefore(container, timeInput);
+        
+        // Mover el input original dentro del contenedor
+        container.appendChild(timeInput);
+        
+        // Añadir el selector al contenedor
+        container.appendChild(periodSelect);
+        
+        // Ajustar el estilo del input de hora
+        timeInput.style.flex = '1';
+        timeInput.style.borderTopRightRadius = '0';
+        timeInput.style.borderBottomRightRadius = '0';
+    }
+    
+    // 3. Configurar eventos para sincronizar el input con el selector
+    timeInput.addEventListener('change', updatePeriodFromInput);
+    periodSelect.addEventListener('change', updateInputFromPeriod);
+    
+    // Establecer el valor inicial del selector AM/PM basado en el input
+    updatePeriodFromInput();
+    
+    console.log("Selector AM/PM inicializado");
+}
+
+// Función para actualizar el selector AM/PM basado en el valor del input
+function updatePeriodFromInput() {
+    const timeInput = document.getElementById('time');
+    const periodSelect = document.getElementById('time-period');
+    
+    if (!timeInput || !periodSelect || !timeInput.value) return;
+    
+    // Parsear la hora en formato 24h
+    const [hourStr] = timeInput.value.split(':');
+    const hour = parseInt(hourStr, 10);
+    
+    // Determinar si es AM o PM
+    if (hour >= 12) {
+        periodSelect.value = 'PM';
+    } else {
+        periodSelect.value = 'AM';
+    }
+}
+
+// Función para actualizar el input basado en el selector AM/PM
+function updateInputFromPeriod() {
+    const timeInput = document.getElementById('time');
+    const periodSelect = document.getElementById('time-period');
+    
+    if (!timeInput || !periodSelect || !timeInput.value) return;
+    
+    // Parsear la hora actual
+    const [hourStr, minuteStr] = timeInput.value.split(':');
+    let hour = parseInt(hourStr, 10);
+    
+    // El periodo actual seleccionado
+    const selectedPeriod = periodSelect.value;
+    
+    // Convertir la hora según el periodo seleccionado
+    if (selectedPeriod === 'AM' && hour >= 12) {
+        // Convertir de PM a AM
+        hour = hour - 12;
+    } else if (selectedPeriod === 'PM' && hour < 12) {
+        // Convertir de AM a PM
+        hour = hour + 12;
+    }
+    
+    // Actualizar el input con el nuevo valor
+    const formattedHour = hour.toString().padStart(2, '0');
+    timeInput.value = `${formattedHour}:${minuteStr}`;
+}
+
+// Modificación simplificada de la función updateAvailableTimes para mostrar horarios en formato AM/PM
+function updateAvailableTimesWithAmPm() {
+    console.log("Actualizando horarios disponibles con indicación AM/PM");
+    
     const dateInput = document.getElementById('date');
     const timeInput = document.getElementById('time');
     const validationMessage = document.getElementById('time-validation-message');
+    const periodSelect = document.getElementById('time-period');
     
     if (!dateInput || !timeInput) {
         console.error("Inputs de fecha/hora no encontrados.");
         return;
+    }
+    
+    // Habilitar/deshabilitar el selector AM/PM junto con el input de hora
+    if (periodSelect) {
+        periodSelect.disabled = timeInput.disabled;
     }
     
     // Limpiar mensaje previo si existe el elemento
@@ -178,6 +295,7 @@ function updateAvailableTimes() {
         timeInput.min = '';
         timeInput.max = '';
         timeInput.disabled = true;
+        if (periodSelect) periodSelect.disabled = true;
         timeInput.value = '';
         if (validationMessage) validationMessage.textContent = "Por favor, selecciona una fecha primero.";
         return;
@@ -188,6 +306,7 @@ function updateAvailableTimes() {
         if (isNaN(selectedDate.getTime())) {
             if (validationMessage) validationMessage.textContent = "La fecha seleccionada es inválida.";
             timeInput.disabled = true;
+            if (periodSelect) periodSelect.disabled = true;
             return;
         }
         
@@ -198,30 +317,81 @@ function updateAvailableTimes() {
             timeInput.min = hours.open;
             timeInput.max = hours.close;
             timeInput.disabled = false;
+            if (periodSelect) periodSelect.disabled = false;
             timeInput.step = "1800"; // 30 minutos
+            
+            // Convertir horarios a formato 12h para mostrar en mensaje
+            const openHour = parseInt(hours.open.split(':')[0]);
+            const openMinute = hours.open.split(':')[1];
+            const closeHour = parseInt(hours.close.split(':')[0]);
+            const closeMinute = hours.close.split(':')[1];
+            
+            const openPeriod = openHour >= 12 ? 'PM' : 'AM';
+            const closePeriod = closeHour >= 12 ? 'PM' : 'AM';
+            
+            const openHour12 = openHour > 12 ? openHour - 12 : (openHour === 0 ? 12 : openHour);
+            const closeHour12 = closeHour > 12 ? closeHour - 12 : (closeHour === 0 ? 12 : closeHour);
             
             const currentTimeValue = timeInput.value;
             if (currentTimeValue) {
                 if (currentTimeValue < hours.open || currentTimeValue > hours.close) {
                     if (validationMessage) {
-                        validationMessage.textContent = `Hora inválida. Para esta fecha atendemos de ${formatTime(hours.open)} a ${formatTime(hours.close)}.`;
+                        validationMessage.textContent = `Hora inválida. Para esta fecha atendemos de ${openHour12}:${openMinute} ${openPeriod} a ${closeHour12}:${closeMinute} ${closePeriod}.`;
+                        validationMessage.className = 'text-red-500 text-sm mt-1';
+                    }
+                } else {
+                    // Hora válida, actualizar el selector AM/PM
+                    updatePeriodFromInput();
+                    if (validationMessage) {
+                        validationMessage.textContent = '';
+                        validationMessage.className = 'text-sm mt-1';
                     }
                 }
             } else if (validationMessage) {
-                validationMessage.textContent = `Horario disponible: ${formatTime(hours.open)} - ${formatTime(hours.close)}.`;
+                validationMessage.textContent = `Horario disponible: ${openHour12}:${openMinute} ${openPeriod} - ${closeHour12}:${closeMinute} ${closePeriod}.`;
+                validationMessage.className = 'text-gray-400 text-sm mt-1';
             }
             
         } else {
             if (validationMessage) validationMessage.textContent = "No laboramos en la fecha seleccionada.";
             timeInput.disabled = true;
+            if (periodSelect) periodSelect.disabled = true;
             timeInput.value = '';
         }
     } catch (error) {
         console.error("Error al actualizar horarios:", error);
         if (validationMessage) validationMessage.textContent = "Error al determinar el horario.";
         timeInput.disabled = true;
+        if (periodSelect) periodSelect.disabled = true;
     }
 }
+
+// Reemplazar la función original con la versión AM/PM
+function replaceUpdateAvailableTimes() {
+    // Guardar referencia a la función original si existe
+    if (typeof window.originalUpdateAvailableTimes !== 'function') {
+        window.originalUpdateAvailableTimes = window.updateAvailableTimes || function(){};
+    }
+    
+    // Reemplazar con nuestra versión
+    window.updateAvailableTimes = updateAvailableTimesWithAmPm;
+    
+    console.log("Función updateAvailableTimes reemplazada con versión AM/PM");
+}
+
+// Inicializar cuando se cargue el DOM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Inicializando selector AM/PM simple");
+    
+    // 1. Inicializar el selector AM/PM
+    initAmPmSelector();
+    
+    // 2. Reemplazar la función de actualización de horarios
+    replaceUpdateAvailableTimes();
+    
+    // 3. Actualizar el estado inicial
+    updateAvailableTimesWithAmPm();
+});
 
 // FUNCIÓN CLAVE: Esta es la función que se llamará desde los botones HTML
 function reservarServicio(serviceId) {
