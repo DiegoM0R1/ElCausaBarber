@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           `Notas: ${notes || 'Ninguna'}`;
             
             // Enviar a WhatsApp
-            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/14382826830?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });
     }

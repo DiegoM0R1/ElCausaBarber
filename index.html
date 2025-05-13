@@ -1437,15 +1437,15 @@ checkoutBtn.addEventListener('click', () => {
         
         if (isMobile) {
             // Para dispositivos móviles intentar primero con el protocolo nativo
-            window.location.href = `whatsapp://send?phone=51917277552&text=${encodeURIComponent(message)}`;
+            window.location.href = `whatsapp://send?phone=14382826830&text=${encodeURIComponent(message)}`;
             
             // Fallback después de un breve retraso
             setTimeout(() => {
-                window.open(`https://api.whatsapp.com/send?phone=51917277552&text=${encodeURIComponent(message)}`, '_blank');
+                window.open(`https://api.whatsapp.com/send?phone=14382826830&text=${encodeURIComponent(message)}`, '_blank');
             }, 300);
         } else {
             // Para escritorio usar directamente la API web
-            window.open(`https://api.whatsapp.com/send?phone=51917277552&text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=14382826830&text=${encodeURIComponent(message)}`, '_blank');
         }
         
         // Feedback visual
@@ -1470,7 +1470,7 @@ checkoutBtn.addEventListener('click', () => {
             const notes = document.getElementById('notes').value;
             const message = `Hola, me gustaría agendar una cita:\n\nNombre: ${name}\nTeléfono: ${phone}\nFecha: ${date}\nHora: ${time}\nServicio: ${service}\nNotas: ${notes}`;
             
-            const whatsappUrl = `https://wa.me/51917277552?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/14382826830?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });
         
