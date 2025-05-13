@@ -359,7 +359,59 @@
 </section>
 
 
-
+   <!-- Appointment Section -->
+   
+<section id="appointment" class="py-16 dark-gray-bg">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">Reserva tu <span class="gold-text">Cita</span></h2>
+            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
+            <p class="mt-4 max-w-2xl mx-auto">
+                Selecciona el servicio y la fecha para ver el precio exacto y reservar.
+            </p>
+        </div>
+        <div class="max-w-xl mx-auto">
+            <form id="appointment-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label for="name" class="block mb-2 text-sm">Nombre completo</label>
+                    <input type="text" id="name" name="name" class="w-full appointment-input p-3 rounded-lg" required>
+                </div>
+                <div>
+                    <label for="phone" class="block mb-2 text-sm">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" class="w-full appointment-input p-3 rounded-lg" required>
+                </div>
+                 
+                <div>
+                    <label for="date" class="block mb-2 text-sm">Fecha</label>
+                    <input type="date" id="date" name="date" class="w-full appointment-input p-3 rounded-lg" required>
+                </div>
+                 <div>
+                    <label for="time" class="block mb-2 text-sm">Hora</label>
+                    <input type="time" id="time" name="time" class="w-full appointment-input p-3 rounded-lg" required>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="service" class="block mb-2 text-sm">Servicio</label>
+                    <select id="service" name="service" class="w-full appointment-input p-3 rounded-lg" required>
+                        <option value="">Selecciona un servicio...</option>
+                        </select>
+                </div>
+                <div class="md:col-span-2 text-right">
+                    <span class="text-lg font-bold">Precio estimado: </span>
+                    <span id="appointment-price-display" class="text-xl font-bold gold-text"></span>
+                 </div>
+                <div class="md:col-span-2">
+                    <label for="notes" class="block mb-2 text-sm">Notas adicionales</label>
+                    <textarea id="notes" name="notes" rows="3" class="w-full appointment-input p-3 rounded-lg"></textarea>
+                </div>
+                <div class="md:col-span-2">
+                    <button type="submit" id="book-appointment" class="w-full btn-gold py-3 px-4 rounded-lg font-bold">
+                        Reservar por WhatsApp
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
 
 
     <section id="services" class="py-16 bg-black">
@@ -645,59 +697,7 @@
     </div>
 </div>
     
-    <!-- Appointment Section -->
-   
-<section id="appointment" class="py-16 dark-gray-bg">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold">Reserva tu <span class="gold-text">Cita</span></h2>
-            <div class="w-24 h-1 gold-bg mx-auto mt-4"></div>
-            <p class="mt-4 max-w-2xl mx-auto">
-                Selecciona el servicio y la fecha para ver el precio exacto y reservar.
-            </p>
-        </div>
-        <div class="max-w-xl mx-auto">
-            <form id="appointment-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="md:col-span-2">
-                    <label for="name" class="block mb-2 text-sm">Nombre completo</label>
-                    <input type="text" id="name" name="name" class="w-full appointment-input p-3 rounded-lg" required>
-                </div>
-                <div>
-                    <label for="phone" class="block mb-2 text-sm">Teléfono</label>
-                    <input type="tel" id="phone" name="phone" class="w-full appointment-input p-3 rounded-lg" required>
-                </div>
-                 
-                <div>
-                    <label for="date" class="block mb-2 text-sm">Fecha</label>
-                    <input type="date" id="date" name="date" class="w-full appointment-input p-3 rounded-lg" required>
-                </div>
-                 <div>
-                    <label for="time" class="block mb-2 text-sm">Hora</label>
-                    <input type="time" id="time" name="time" class="w-full appointment-input p-3 rounded-lg" required>
-                </div>
-                <div class="md:col-span-2">
-                    <label for="service" class="block mb-2 text-sm">Servicio</label>
-                    <select id="service" name="service" class="w-full appointment-input p-3 rounded-lg" required>
-                        <option value="">Selecciona un servicio...</option>
-                        </select>
-                </div>
-                <div class="md:col-span-2 text-right">
-                    <span class="text-lg font-bold">Precio estimado: </span>
-                    <span id="appointment-price-display" class="text-xl font-bold gold-text"></span>
-                 </div>
-                <div class="md:col-span-2">
-                    <label for="notes" class="block mb-2 text-sm">Notas adicionales</label>
-                    <textarea id="notes" name="notes" rows="3" class="w-full appointment-input p-3 rounded-lg"></textarea>
-                </div>
-                <div class="md:col-span-2">
-                    <button type="submit" id="book-appointment" class="w-full btn-gold py-3 px-4 rounded-lg font-bold">
-                        Reservar por WhatsApp
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
+ 
     
     <!-- Google Reviews Section -->
 <section id="google-reviews" class="py-16 dark-gray-bg">
