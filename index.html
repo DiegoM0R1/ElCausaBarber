@@ -163,27 +163,10 @@
  <section id="about-section" class="py-8 md:py-16 dark-gray-bg reveal fade-in">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center">
-            <div class="video-container md:w-1/2 mb-4 md:mb-0">
-                <div class="video-wrapper rounded-lg shadow-lg overflow-hidden">
-                    <video id="barber-video" class="w-full h-auto object-cover" loop playsinline preload="metadata" controls>
-                        <source src="video/presentacion1.mp4" type="video/mp4">
-                        Tu navegador no soporta videos HTML5.
-                    </video>
-                    <button id="play-button" class="focus:outline-none" aria-label="Reproducir video">
-                        <svg class="play-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010.049 9.6l1.876 1.876a12 12 0 01-7.053-3.386A1 1 0 0010.369 8.968l3.197 2.128A1.333 1.333 0 0014 10.5V6a1 1 0 00-1-1H5a1 1 0 00-1 1v15a1 1 0 001 1h8a1 1 0 001-1v-4.5a1.333 1.333 0 00-.434-.696z" />
-                        </svg>
-                        <svg class="paused hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </button>
-                    <button id="expand-button" class="focus:outline-none" aria-label="Expandir video">
-                        <svg class="expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 16v4m0 0h4m8-4v4m0 0h4m0-16v4m0 0h-4M4 8h16M4 16h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+            <div class="md:w-1/2 md:max-w-lg md:pl-8 content-container" style="width: 100%;">
+    <img src="video/Barberia_puerta.jpg" alt="" class="w-full h-auto object-cover rounded-lg shadow-lg mb-4">
+</div>
+
             <div class="md:w-1/2 md:pl-8 content-container">
                 <h2 class="text-2xl font-bold mb-4 playfair-font"><span class="gold-text">Descubre</span> ElCausaBarber</h2>
                 <p class="text-sm md:text-base mb-3">
@@ -209,19 +192,6 @@
             
         </div>
     </div>
-    <div id="expanded-overlay" class="hidden">
-        <div class="relative w-full max-w-4xl">
-            <video id="expanded-video" controls playsinline>
-                <!-- La fuente del video se establece dinámicamente desde JavaScript -->
-                Tu navegador no soporta videos HTML5.
-            </video>
-            <button id="close-expanded" aria-label="Cerrar video">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-    </div>
 
 </section>
     
@@ -232,7 +202,7 @@
             <div class="video-container md:w-1/2 mb-4 md:mb-0">
                 <div class="video-wrapper rounded-lg shadow-lg overflow-hidden">
                     <video id="barber-video" class="w-full h-auto object-cover" loop playsinline preload="metadata" controls>
-                        <source src="video/clipbiblico.mp4" type="video/mp4">
+                        <source src="video/presentacion2.mp4" type="video/mp4">
                         Tu navegador no soporta videos HTML5.
                     </video>
                     <button id="play-button" class="focus:outline-none" aria-label="Reproducir video">
@@ -250,15 +220,33 @@
                     </button>
                 </div>
             </div>
-            <div class="md:w-1/2 md:pl-8 content-container" style="width: 60%;">
-<img src="video/Barberia_puerta.jpg" alt=""  class="w-full h-auto object-cover rounded-lg shadow-lg mb-4" style="display: flex;">
-                
 
-            </div>
              <div class="video-container md:w-1/2 mb-4 md:mb-0">
                 <div class="video-wrapper rounded-lg shadow-lg overflow-hidden">
                     <video id="barber-video" class="w-full h-auto object-cover" loop playsinline preload="metadata" controls>
-                        <source src="video/presentacion2.mp4" type="video/mp4">
+                        <source src="video/presentacion1.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                    <button id="play-button" class="focus:outline-none" aria-label="Reproducir video">
+                        <svg class="play-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010.049 9.6l1.876 1.876a12 12 0 01-7.053-3.386A1 1 0 0010.369 8.968l3.197 2.128A1.333 1.333 0 0014 10.5V6a1 1 0 00-1-1H5a1 1 0 00-1 1v15a1 1 0 001 1h8a1 1 0 001-1v-4.5a1.333 1.333 0 00-.434-.696z" />
+                        </svg>
+                        <svg class="paused hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                    <button id="expand-button" class="focus:outline-none" aria-label="Expandir video">
+                        <svg class="expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 16v4m0 0h4m8-4v4m0 0h4m0-16v4m0 0h-4M4 8h16M4 16h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+           
+             <div class="video-container md:w-1/2 mb-4 md:mb-0">
+                <div class="video-wrapper rounded-lg shadow-lg overflow-hidden">
+                    <video id="barber-video" class="w-full h-auto object-cover" loop playsinline preload="metadata" controls>
+                        <source src="video/clipbiblico.mp4" type="video/mp4">
                         Tu navegador no soporta videos HTML5.
                     </video>
                     <button id="play-button" class="focus:outline-none" aria-label="Reproducir video">
