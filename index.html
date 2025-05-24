@@ -1596,14 +1596,26 @@ function createGalleryItem(source, isVideo = false, title = '') {
 // Datos de la galería (reemplaza con tus propias URLs)
 const galleryData = {
     photos: [
-        { src: "https://plus.unsplash.com/premium_photo-1658506711778-d56cdeae1b9b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyJTIwc2hvcHxlbnwwfHwwfHx8MA%3D%3D", title: "Corte clásico" },
-        { src: "https://www.elivelimen.com/blog/wp-content/uploads/2020/03/muselines-eliveli-men-peluqueria-barberia-donostia-068-1024x683.jpg", title: "Afeitado tradicional" },
-        { src: "https://cuponassets.cuponatic-latam.com/backendCl/uploads/imagenes_descuentos/228906/47c1a180ba331a2539afe8ee64f8a047fab71101.XL2.jpg", title: "Tratamiento de barba" },
-        { src: "https://plus.unsplash.com/premium_photo-1661645788141-8196a45fb483?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFyYmVyfGVufDB8fDB8fHww", title: "Corte moderno" },
-        { src: "https://i.pinimg.com/736x/f1/05/26/f105261326596f7f264ddfa9712902e4.jpg", title: "Estilo urbano" },
-        { src: "https://barberiahudson.com/wp-content/uploads/2024/07/MOVIL-3.png", title: "Experiencia premium" },
+        
+        { src: "img/corte/IMG_7819.jpg", title: "Se único" },
+        { src: "img/corte/taper.png", title: "Taper Fade" },
+        { src: "https://i.pinimg.com/1200x/cb/10/d5/cb10d5f003e9c1fc858737a304a57094.jpg", title: "Los mejores cortes" },
+        { src: "img/corte/tijeras.png", title: "Tijeras doradas" },
+        { src: "img/corte/midfade.jpg", title: "Estilo urbano" },
+        { src: "img/corte/modelo.png", title: "Estilo moderno" },
+        { src: "img/corte/IMG_7548.jpg", title: "Estilos unicos" },
+        { src: "img/corte/IMG_7591.jpg", title: "Sobre sale con tu look" },
+        { src: "img/corte/IMG_7818.jpg", title: "Cortes tendencia" },
+        { src: "img/corte/IMG_8535.jpg", title: "Se tendencia" },
+
+
+
+
+
+
+        
         { src: "https://sevilla.abc.es/contenidopromocionado/wp-content/uploads/sites/2/2019/07/portada-wp-barbas.jpg", title: "Detalle de barba" },
-        { src: "https://plus.unsplash.com/premium_photo-1677444491957-ab1e8b9a80fd?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGJhcmJlciVDMyVBRGF8ZW58MHx8MHx8fDA%3D", title: "Servicio VIP" }
+        { src: "img/corte/Taperfade.png", title: "Servicio VIP" }
     ],
     videos: [
         { src: "video/clipbiblico.mp4", title: "Proverbs 16:3" },
@@ -1621,7 +1633,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const swiperWrapper = document.querySelector('.gallerySwiper .swiper-wrapper');
     
     // Inicializar slides del swiper (fotos destacadas)
-    galleryData.photos.slice(0, 6).forEach(photo => {
+    galleryData.photos.slice(0, 12).forEach(photo => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
         slide.innerHTML = `<img src="${photo.src}" alt="${photo.title}" class="w-full h-full object-cover rounded-lg cursor-pointer" data-gallery="photo" data-src="${photo.src}">`;
